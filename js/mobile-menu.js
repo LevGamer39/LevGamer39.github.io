@@ -4,8 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const mainNav = document.getElementById('main-nav');
   
   if (mobileMenuBtn && mainNav) {
-    mobileMenuBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
+    mobileMenuBtn.addEventListener('click', function() {
       mainNav.classList.toggle('active');
       this.classList.toggle('active');
     });
@@ -22,14 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Закрытие меню при клике вне его области
     document.addEventListener('click', function(e) {
       if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-        mainNav.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-      }
-    });
-    
-    // Закрытие меню при изменении размера окна (на десктоп)
-    window.addEventListener('resize', function() {
-      if (window.innerWidth > 768) {
         mainNav.classList.remove('active');
         mobileMenuBtn.classList.remove('active');
       }

@@ -1,23 +1,17 @@
 // js/contact.js
 document.addEventListener('DOMContentLoaded', () => {
-  const contactForm = document.getElementById('contact-form');
-  
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const name = contactForm.elements['name']?.value || '';
-      const email = contactForm.elements['email']?.value || '';
-      const msg = contactForm.elements['message']?.value || '';
-      
-      if (!name || !email || !msg) {
-        alert('Пожалуйста, заполните все поля');
-        return;
-      }
-      
-      // Имитация отправки
-      alert(`Спасибо, ${name}! Ваше сообщение отправлено. (Это демо - сообщение никуда не отправляется)`);
-      contactForm.reset();
-    });
-  }
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = form.elements['name']?.value || '';
+    const email = form.elements['email']?.value || '';
+    const msg = form.elements['message']?.value || '';
+
+    // Пока просто показываем локальную подсказку / имитацию отправки
+    // Здесь можно собрать payload и отправить на почтовый сервис (future)
+    alert('Спасибо! Ваше сообщение сохранено локально. (Заглушка отправки)');
+    form.reset();
+  });
 });
