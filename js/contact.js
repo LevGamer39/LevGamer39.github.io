@@ -1,18 +1,23 @@
 // js/contact.js
 document.addEventListener('DOMContentLoaded', () => {
-  // Обработчик будет работать когда страница контактов активна
-  document.addEventListener('click', (e) => {
-    if (e.target.matches('#contact-form .btn[type="submit"]')) {
+  const contactForm = document.getElementById('contact-form');
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      const form = document.getElementById('contact-form');
-      if (!form) return;
       
-      const name = form.elements['name']?.value || '';
-      const email = form.elements['email']?.value || '';
-      const msg = form.elements['message']?.value || '';
+      const name = contactForm.elements['name']?.value || '';
+      const email = contactForm.elements['email']?.value || '';
+      const msg = contactForm.elements['message']?.value || '';
       
-      alert('Спасибо! Ваше сообщение сохранено локально. (Заглушка отправки)');
-      form.reset();
-    }
-  });
+      if (!name || !email || !msg) {
+        alert('Пожалуйста, заполните все поля');
+        return;
+      }
+      
+      // Имитация отправки
+      alert(`Спасибо, ${name}! Ваше сообщение отправлено. (Это демо - сообщение никуда не отправляется)`);
+      contactForm.reset();
+    });
+  }
 });
