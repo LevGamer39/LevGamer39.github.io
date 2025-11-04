@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="css/skills.css">
   <link rel="stylesheet" href="css/contact.css">
   <link rel="stylesheet" href="css/terminal.css">
+  <link rel="stylesheet" href="css/spa.css">
 </head>
 <body>
   <header class="topbar">
@@ -194,136 +195,6 @@
   <script src="js/projects.js"></script>
   <script src="js/skills.js"></script>
   <script src="js/contact.js"></script>
-  
-  <script>
-    // SPA Router
-    document.addEventListener('DOMContentLoaded', function() {
-      const pages = document.querySelectorAll('.page');
-      const navLinks = document.querySelectorAll('.nav-link');
-      const btnLinks = document.querySelectorAll('.btn[data-page]');
-      
-      function showPage(pageId) {
-        // Скрыть все страницы
-        pages.forEach(page => page.classList.remove('active'));
-        
-        // Показать выбранную страницу
-        const activePage = document.getElementById(pageId + '-page');
-        if (activePage) {
-          activePage.classList.add('active');
-        }
-        
-        // Обновить активную ссылку в навигации
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('data-page') === pageId) {
-            link.classList.add('active');
-          }
-        });
-        
-        // Прокрутка к верху страницы
-        window.scrollTo(0, 0);
-      }
-      
-      // Обработчик клика по навигационным ссылкам
-      navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const pageId = this.getAttribute('data-page');
-          showPage(pageId);
-          history.replaceState(null, null, ' ');
-        });
-      });
-      
-      // Обработчик для кнопок с data-page
-      btnLinks.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          const pageId = this.getAttribute('data-page');
-          showPage(pageId);
-          history.replaceState(null, null, ' ');
-        });
-      });
-      
-      // Инициализация - всегда показываем главную
-      showPage('home');
-    });
-  </script>
-  
-  <style>
-    /* SPA Styles */
-    .page {
-      display: none;
-    }
-    
-    .page.active {
-      display: block;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    
-    /* Улучшения для навигации SPA */
-    .nav-link {
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    
-    /* Фикс для кнопок на главной странице */
-    .actions {
-      display: flex;
-      gap: 14px;
-      margin-top: 20px;
-    }
-    
-    .btn {
-      background: var(--panel);
-      padding: 12px 18px;
-      border-radius: 10px;
-      color: var(--text);
-      text-decoration: none;
-      display: inline-block;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-    }
-    
-    .btn:hover {
-      box-shadow: 0 10px 26px rgba(77,163,255,0.06);
-      transform: translateY(-2px);
-    }
-    
-    .btn.ghost {
-      background: #191f24;
-      color: var(--muted);
-    }
-    
-    /* Гарантируем правильное отображение контейнера */
-    .container {
-      position: relative;
-    }
-    
-    .page {
-      width: 100%;
-    }
-    
-    /* Фикс для отступов на главной */
-    .hero {
-      margin-bottom: 40px;
-    }
-    
-    .about-skills {
-      margin-bottom: 40px;
-    }
-    
-    .skills-cards {
-      margin-bottom: 40px;
-    }
-  </style>
+  <script src="js/spa-router.js"></script>
 </body>
 </html>
