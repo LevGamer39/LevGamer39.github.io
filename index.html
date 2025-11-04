@@ -3,10 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>LevGamer39 — Главная</title>
+  <title>LevGamer39 — Портфолио</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/projects.css">
+  <link rel="stylesheet" href="css/skills.css">
+  <link rel="stylesheet" href="css/contact.css">
   <link rel="stylesheet" href="css/terminal.css">
 </head>
 <body>
@@ -18,71 +21,166 @@
       <span></span>
     </button>
     <nav class="nav" id="main-nav">
-      <a href="index.html" class="nav-link active">Главная</a>
-      <a href="projects.html" class="nav-link">Проекты</a>
-      <a href="skills.html" class="nav-link">Навыки</a>
-      <a href="contact.html" class="nav-link">Контакты</a>
+      <a href="#home" class="nav-link active" data-page="home">Главная</a>
+      <a href="#projects" class="nav-link" data-page="projects">Проекты</a>
+      <a href="#skills" class="nav-link" data-page="skills">Навыки</a>
+      <a href="#contact" class="nav-link" data-page="contact">Контакты</a>
     </nav>
     <div class="user">LevGamer39</div>
   </header>
 
   <main class="container">
-    <!-- остальной контент без изменений -->
-    <section class="hero">
-      <h1 class="title">Lev Kirillov</h1>
-      <p class="subtitle">Системный разработчик и энтузиаст электроники</p>
-      <p class="lead">Создаю решения на стыке кода и железа — C++, C#, backend и embedded.</p>
+    <!-- Главная страница -->
+    <section id="home-page" class="page active">
+      <section class="hero">
+        <h1 class="title">Lev Kirillov</h1>
+        <p class="subtitle">Системный разработчик и энтузиаст электроники</p>
+        <p class="lead">Создаю решения на стыке кода и железа — C++, C#, backend и embedded.</p>
 
-      <div class="actions">
-        <a class="btn" href="https://github.com/LevGamer39" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn ghost" href="projects.html">Проекты</a>
-        <a class="btn ghost" href="contact.html">Контакты</a>
+        <div class="actions">
+          <a class="btn" href="https://github.com/LevGamer39" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn ghost" href="#projects" data-page="projects">Проекты</a>
+          <a class="btn ghost" href="#contact" data-page="contact">Контакты</a>
+        </div>
+      </section>
+
+      <section class="about-skills">
+        <div class="about-card">
+          <h2>Обо мне</h2>
+          <p>Работаю с системным и прикладным кодом на C++ и C#. Увлекаюсь электроникой, ARM-платформами (Raspberry Pi, ESP) и интеграцией железа в софт. Создаю свои инструменты для Linux и микроконтроллеров, оптимизирую backend и инфраструктуру.</p>
+        </div>
+
+        <aside class="preview-card">
+          <h3>Короткий обзор</h3>
+          <ul>
+            <li>C++ / C# — системное и прикладное ПО</li>
+            <li>Linux, Bash — автоматизация и сборки</li>
+            <li>Embedded — Raspberry Pi, ESP</li>
+            <li>Backend — API и инфраструктура</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="skills-cards">
+        <h3>Навыки</h3>
+        <div class="grid-3">
+          <div class="card">
+            <h4>Языки</h4>
+            <p>C++, C#</p>
+          </div>
+          <div class="card">
+            <h4>Технологии</h4>
+            <p>Linux, Bash, Backend</p>
+          </div>
+          <div class="card">
+            <h4>Электроника</h4>
+            <p>Raspberry Pi, ESP, ARM</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="terminal">
+        <div class="terminal-header">lev@LevGamer39:~</div>
+        <div class="term-output" id="terminal-output"></div>
+        <div class="term-input-row">
+          <span class="prompt">lev@LevGamer39:~$</span>
+          <input type="text" id="terminal-input" autocomplete="off" />
+        </div>
       </div>
     </section>
 
-    <section class="about-skills">
-      <div class="about-card">
-        <h2>Обо мне</h2>
-        <p>Работаю с системным и прикладным кодом на C++ и C#. Увлекаюсь электроникой, ARM-платформами (Raspberry Pi, ESP) и интеграцией железа в софт. Создаю свои инструменты для Linux и микроконтроллеров, оптимизирую backend и инфраструктуру.</p>
-      </div>
+    <!-- Проекты -->
+    <section id="projects-page" class="page">
+      <section class="projects-hero">
+        <h1>Проекты</h1>
+        <p class="muted">Краткие карточки проектов. Клик — подробнее.</p>
+      </section>
 
-      <aside class="preview-card">
-        <h3>Короткий обзор</h3>
-        <ul>
-          <li>C++ / C# — системное и прикладное ПО</li>
-          <li>Linux, Bash — автоматизация и сборки</li>
-          <li>Embedded — Raspberry Pi, ESP</li>
-          <li>Backend — API и инфраструктура</li>
-        </ul>
-      </aside>
+      <section class="projects-grid">
+        <article class="project-card">
+          <h3>ArchARM System</h3>
+          <p>Кастомный дистрибутив Linux для ARM-платформ с автоматизацией сборки и управлением пакетами.</p>
+          <div class="meta">C++, Bash · OS · Embedded</div>
+          <a class="link" href="#">Подробнее</a>
+        </article>
+
+        <article class="project-card">
+          <h3>System Dashboard</h3>
+          <p>Веб-панель мониторинга локальных сервисов, интеграция с Homer и удалённое управление.</p>
+          <div class="meta">Node / Backend · Web UI</div>
+          <a class="link" href="#">Подробнее</a>
+        </article>
+
+        <article class="project-card">
+          <h3>Embedded Tools</h3>
+          <p>Набор утилит и скриптов для микроконтроллеров: сборка, прошивка и логирование.</p>
+          <div class="meta">C++ · Scripts · Embedded</div>
+          <a class="link" href="#">Подробнее</a>
+        </article>
+      </section>
     </section>
 
-    <section class="skills-cards">
-      <h3>Навыки</h3>
-      <div class="grid-3">
-        <div class="card">
-          <h4>Языки</h4>
-          <p>C++, C#</p>
+    <!-- Навыки -->
+    <section id="skills-page" class="page">
+      <h1>Навыки</h1>
+      <section class="skill-grid">
+        <div class="skill">
+          <h3>Языки</h3>
+          <ul><li>C++ (системное, оптимизация)</li><li>C# (приложения, Unity)</li></ul>
         </div>
-        <div class="card">
-          <h4>Технологии</h4>
-          <p>Linux, Bash, Backend</p>
+        <div class="skill">
+          <h3>Backend</h3>
+          <ul><li>API design</li><li>Node / Express, nginx</li><li>CI/CD основы</li></ul>
         </div>
-        <div class="card">
-          <h4>Электроника</h4>
-          <p>Raspberry Pi, ESP, ARM</p>
+        <div class="skill">
+          <h3>Linux & DevOps</h3>
+          <ul><li>Bash / Shell scripting</li><li>Arch / Ubuntu</li></ul>
         </div>
-      </div>
+        <div class="skill">
+          <h3>Embedded / Electronics</h3>
+          <ul><li>Raspberry Pi, ESP</li><li>UART, I2C, SPI</li></ul>
+        </div>
+      </section>
     </section>
 
-    <div class="terminal">
-      <div class="terminal-header">lev@LevGamer39:~</div>
-      <div class="term-output" id="terminal-output"></div>
-      <div class="term-input-row">
-        <span class="prompt">lev@LevGamer39:~$</span>
-        <input type="text" id="terminal-input" autocomplete="off" />
-      </div>
-    </div>
+    <!-- Контакты -->
+    <section id="contact-page" class="page">
+      <section class="contact-hero">
+        <h1>Контакты</h1>
+        <p class="muted">Связаться со мной можно через GitHub или отправив сообщение ниже — форма-заглушка (без сервера).</p>
+      </section>
+
+      <section class="contact-grid">
+        <div class="contact-card card">
+          <h3>Связаться</h3>
+          <p class="muted">Оставь сообщение — это локальная заглушка, в будущем подключу отправку на почту.</p>
+
+          <form id="contact-form" class="contact-form">
+            <label for="c-name">Имя</label>
+            <input id="c-name" name="name" type="text" placeholder="Ваше имя">
+
+            <label for="c-email">Email</label>
+            <input id="c-email" name="email" type="email" placeholder="you@example.com">
+
+            <label for="c-msg">Сообщение</label>
+            <textarea id="c-msg" name="message" rows="6" placeholder="Коротко о вашей идее или вопросе"></textarea>
+
+            <div style="display:flex;gap:12px;margin-top:12px;align-items:center;">
+              <button type="submit" class="btn">Отправить</button>
+              <span class="muted" style="font-size:13px;">(заглушка — пока отправки нет)</span>
+            </div>
+          </form>
+        </div>
+
+        <aside class="contact-links card">
+          <h3>Ссылки</h3>
+          <ul>
+            <li><a href="https://github.com/LevGamer39" target="_blank" rel="noopener">GitHub — LevGamer39</a></li>
+            <li><a href="https://steamcommunity.com/profiles/76561199019925778/" target="_blank" rel="noopener">Steam</a></li>
+          </ul>
+        </aside>
+      </section>
+    </section>
   </main>
 
   <footer class="footer">
@@ -90,9 +188,142 @@
     <div class="status">Made with logic &amp; open source</div>
   </footer>
 
-  <script src="js/terminal.js"></script>
   <script src="js/mobile-menu.js"></script>
-  <script src="js/redirect.js"></script>
+  <script src="js/terminal.js"></script>
   <script src="js/home.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/skills.js"></script>
+  <script src="js/contact.js"></script>
+  
+  <script>
+    // SPA Router
+    document.addEventListener('DOMContentLoaded', function() {
+      const pages = document.querySelectorAll('.page');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const btnLinks = document.querySelectorAll('.btn[data-page]');
+      
+      function showPage(pageId) {
+        // Скрыть все страницы
+        pages.forEach(page => page.classList.remove('active'));
+        
+        // Показать выбранную страницу
+        const activePage = document.getElementById(pageId + '-page');
+        if (activePage) {
+          activePage.classList.add('active');
+        }
+        
+        // Обновить активную ссылку в навигации
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('data-page') === pageId) {
+            link.classList.add('active');
+          }
+        });
+        
+        // Прокрутка к верху страницы
+        window.scrollTo(0, 0);
+      }
+      
+      // Обработчик клика по навигационным ссылкам
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const pageId = this.getAttribute('data-page');
+          showPage(pageId);
+          history.replaceState(null, null, ' ');
+        });
+      });
+      
+      // Обработчик для кнопок с data-page
+      btnLinks.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const pageId = this.getAttribute('data-page');
+          showPage(pageId);
+          history.replaceState(null, null, ' ');
+        });
+      });
+      
+      // Инициализация - всегда показываем главную
+      showPage('home');
+    });
+  </script>
+  
+  <style>
+    /* SPA Styles */
+    .page {
+      display: none;
+    }
+    
+    .page.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    /* Улучшения для навигации SPA */
+    .nav-link {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    /* Фикс для кнопок на главной странице */
+    .actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      background: var(--panel);
+      padding: 12px 18px;
+      border-radius: 10px;
+      color: var(--text);
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    
+    .btn:hover {
+      box-shadow: 0 10px 26px rgba(77,163,255,0.06);
+      transform: translateY(-2px);
+    }
+    
+    .btn.ghost {
+      background: #191f24;
+      color: var(--muted);
+    }
+    
+    /* Гарантируем правильное отображение контейнера */
+    .container {
+      position: relative;
+    }
+    
+    .page {
+      width: 100%;
+    }
+    
+    /* Фикс для отступов на главной */
+    .hero {
+      margin-bottom: 40px;
+    }
+    
+    .about-skills {
+      margin-bottom: 40px;
+    }
+    
+    .skills-cards {
+      margin-bottom: 40px;
+    }
+  </style>
 </body>
 </html>
