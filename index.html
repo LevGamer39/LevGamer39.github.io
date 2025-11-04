@@ -144,41 +144,147 @@
       </section>
     </section>
 
-    <!-- Контакты -->
+         <!-- Контакты -->
     <section id="contact-page" class="page">
       <section class="contact-hero">
-        <h1>Контакты</h1>
-        <p class="muted">Связаться со мной можно через GitHub или отправив сообщение ниже — форма-заглушка (без сервера).</p>
+        <h1>Свяжитесь со мной</h1>
+        <p class="muted">Есть вопросы или предложения? Напишите мне — отвечу в ближайшее время.</p>
       </section>
 
       <section class="contact-grid">
         <div class="contact-card card">
-          <h3>Связаться</h3>
-          <p class="muted">Оставь сообщение — это локальная заглушка, в будущем подключу отправку на почту.</p>
+          <h3>Форма обратной связи</h3>
+          <p class="muted">Заполните форму ниже, и я обязательно вам отвечу. Сообщения приходят напрямую в Telegram.</p>
 
           <form id="contact-form" class="contact-form">
-            <label for="c-name">Имя</label>
-            <input id="c-name" name="name" type="text" placeholder="Ваше имя">
+            <!-- Скрытое поле для защиты от ботов -->
+            <div style="display: none;">
+              <input type="text" name="bot-field" autocomplete="off">
+            </div>
 
-            <label for="c-email">Email</label>
-            <input id="c-email" name="email" type="email" placeholder="you@example.com">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-lastname">Фамилия *</label>
+                <input id="c-lastname" name="lastname" type="text" placeholder="Иванов" maxlength="50" required
+                       pattern="[A-Za-zА-Яа-яЁё\s\-]+" title="Только буквы, пробелы и дефисы">
+                <div class="field-hint">Только буквы и дефисы</div>
+              </div>
+              <div class="form-group">
+                <label for="c-firstname">Имя *</label>
+                <input id="c-firstname" name="firstname" type="text" placeholder="Иван" maxlength="50" required
+                       pattern="[A-Za-zА-Яа-яЁё\s\-]+" title="Только буквы, пробелы и дефисы">
+                <div class="field-hint">Только буквы и дефисы</div>
+              </div>
+            </div>
 
-            <label for="c-msg">Сообщение</label>
-            <textarea id="c-msg" name="message" rows="6" placeholder="Коротко о вашей идее или вопросе"></textarea>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-middlename">Отчество</label>
+                <input id="c-middlename" name="middlename" type="text" placeholder="Иванович" maxlength="50"
+                       pattern="[A-Za-zА-Яа-яЁё\s\-]*" title="Только буквы, пробелы и дефисы">
+                <div class="field-hint">Необязательно</div>
+              </div>
+              <div class="form-group">
+                <label for="c-phone">Телефон</label>
+                <input id="c-phone" name="phone" type="tel" placeholder="+7 (999) 123-45-67"
+                       pattern="\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}" title="Формат: +7 (999) 123-45-67">
+                <div class="field-hint">Формат: +7 (999) 123-45-67</div>
+              </div>
+            </div>
 
-            <div style="display:flex;gap:12px;margin-top:12px;align-items:center;">
-              <button type="submit" class="btn">Отправить</button>
-              <span class="muted" style="font-size:13px;">(заглушка — пока отправки нет)</span>
+            <label for="c-email">Email адрес *</label>
+            <input id="c-email" name="email" type="email" placeholder="your.email@example.com" required
+                   pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Введите корректный email">
+
+            <label for="c-subject">Тема сообщения *</label>
+            <select id="c-subject" name="subject" required>
+              <option value="">Выберите тему</option>
+              <option value="Сотрудничество">🤝 Сотрудничество</option>
+              <option value="Обсуждение проекта">💼 Обсуждение проекта</option>
+              <option value="Предложение о работе">💻 Предложение о работе</option>
+              <option value="Консультация">🎓 Консультация</option>
+              <option value="Вопрос по проекту">❓ Вопрос по проекту</option>
+              <option value="Другое">📋 Другое</option>
+            </select>
+
+            <label for="c-msg">Сообщение *</label>
+            <textarea id="c-msg" name="message" placeholder="Расскажите подробнее о вашем предложении или вопросе..." 
+                     required minlength="10" maxlength="1000"></textarea>
+            <div class="char-counter">0/1000 символов</div>
+
+            <div class="checkbox-group">
+              <input type="checkbox" id="c-agreement" name="agreement" required>
+              <label for="c-agreement">
+                Я соглашаюсь на обработку моих персональных данных и принимаю 
+                <a href="#" style="color: var(--accent);">политику конфиденциальности</a>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn">
+                <span class="btn-icon">✈️</span> 
+                <span class="btn-text">Отправить в Telegram</span>
+              </button>
+              <button type="button" class="btn secondary" id="clear-form">
+                <span class="btn-icon">🗑️</span>
+                <span class="btn-text">Очистить форму</span>
+              </button>
+            </div>
+
+            <div class="delivery-info">
+              <small class="muted">⚡ Сообщения приходят мгновенно прямо в Telegram</small>
             </div>
           </form>
         </div>
 
         <aside class="contact-links card">
-          <h3>Ссылки</h3>
+          <h3>Другие способы связи</h3>
           <ul>
-            <li><a href="https://github.com/LevGamer39" target="_blank" rel="noopener">GitHub — LevGamer39</a></li>
-            <li><a href="https://steamcommunity.com/profiles/76561199019925778/" target="_blank" rel="noopener">Steam</a></li>
+            <li>
+              <a href="https://github.com/LevGamer39" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon">📁</span>
+                <span class="link-text">GitHub — LevGamer39</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://steamcommunity.com/profiles/76561199019925778/" target="_blank" rel="noopener noreferrer">
+                <span class="link-icon">🎮</span>
+                <span class="link-text">Steam профиль</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="telegram-link">
+                <span class="link-icon">✈️</span>
+                <span class="link-text">Telegram (через форму)</span>
+              </a>
+            </li>
+            <li>
+              <a href="mailto:your-email@example.com" rel="noopener">
+                <span class="link-icon">📧</span>
+                <span class="link-text">Email (резервно)</span>
+              </a>
+            </li>
           </ul>
+          
+          <div class="contact-info">
+            <h4>Контактная информация</h4>
+            <div class="info-item">
+              <strong>📍 Местоположение:</strong>
+              <span>Россия</span>
+            </div>
+            <div class="info-item">
+              <strong>🕒 Часовой пояс:</strong>
+              <span>МСК (UTC+3)</span>
+            </div>
+            <div class="info-item">
+              <strong>⏱ Время ответа:</strong>
+              <span>1-24 часа</span>
+            </div>
+            <div class="info-item">
+              <strong>🔒 Защита данных:</strong>
+              <span>Сообщения шифруются</span>
+            </div>
+          </div>
         </aside>
       </section>
     </section>
