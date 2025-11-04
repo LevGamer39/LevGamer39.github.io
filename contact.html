@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LevGamer39 — Контакты</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">LevGamer39</div>
+    <button class="mobile-menu-btn" id="mobile-menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="nav" id="main-nav">
+      <a href="index.html" class="nav-link">Главная</a>
+      <a href="projects.html" class="nav-link">Проекты</a>
+      <a href="skills.html" class="nav-link">Навыки</a>
+      <a href="contact.html" class="nav-link active">Контакты</a>
+    </nav>
+    <div class="user">LevGamer39</div>
+  </header>
+
+  <!-- остальной контент без изменений -->
+  <main class="container">
+    <section class="contact-hero">
+      <h1>Контакты</h1>
+      <p class="muted">Связаться со мной можно через GitHub или отправив сообщение ниже — форма-заглушка (без сервера).</p>
+    </section>
+
+    <section class="contact-grid">
+      <div class="contact-card card">
+        <h3>Связаться</h3>
+        <p class="muted">Оставь сообщение — это локальная заглушка, в будущем подключу отправку на почту.</p>
+
+        <form id="contact-form" class="contact-form">
+          <label for="c-name">Имя</label>
+          <input id="c-name" name="name" type="text" placeholder="Ваше имя">
+
+          <label for="c-email">Email</label>
+          <input id="c-email" name="email" type="email" placeholder="you@example.com">
+
+          <label for="c-msg">Сообщение</label>
+          <textarea id="c-msg" name="message" rows="6" placeholder="Коротко о вашей идее или вопросе"></textarea>
+
+          <div style="display:flex;gap:12px;margin-top:12px;align-items:center;">
+            <button type="submit" class="btn">Отправить</button>
+            <span class="muted" style="font-size:13px;">(заглушка — пока отправки нет)</span>
+          </div>
+        </form>
+      </div>
+
+      <aside class="contact-links card">
+        <h3>Ссылки</h3>
+        <ul>
+          <li><a href="https://github.com/LevGamer39" target="_blank" rel="noopener">GitHub — LevGamer39</a></li>
+          <li><a href="https://steamcommunity.com/profiles/76561199019925778/" target="_blank" rel="noopener">Steam</a></li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© 2025 LevGamer39</div>
+    <div class="status">Made with logic &amp; open source</div>
+  </footer>
+
+  <script src="js/mobile-menu.js"></script>
+  <script src="js/redirect.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>
