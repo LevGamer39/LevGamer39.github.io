@@ -1,0 +1,87 @@
+.contact-hero h1 { margin: 0 0 6px; }
+.contact-hero .muted { color: var(--muted); margin-bottom: 18px; font-size: 1rem; }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 20px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+.contact-card { padding: 18px; }
+.contact-card h3 { margin-top: 0; }
+
+.contact-form label { display:block; margin-top:12px; color:var(--muted); font-size:14px; }
+.contact-form input,
+.contact-form textarea {
+  width:100%;
+  margin-top:6px;
+  padding:10px;
+  background:transparent;
+  border:1px solid var(--card-border);
+  border-radius:8px;
+  color:var(--text);
+  font-family:inherit;
+}
+
+.contact-form .btn {
+  background:var(--panel);
+  color:var(--text);
+  padding:10px 14px;
+  border-radius:8px;
+  border:1px solid rgba(77,163,255,0.06);
+  cursor:pointer;
+}
+
+.contact-links { padding:18px; }
+.contact-links ul { list-style:none; padding:0; margin:6px 0 0; }
+.contact-links li { margin:8px 0; }
+.contact-links a { color:var(--accent); text-decoration:none; }
+.contact-links a:hover { text-decoration:underline; }
+
+@media (max-width:1000px){
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* Улучшения для мобильных */
+@media (max-width: 768px) {
+  .contact-grid {
+    gap: 16px;
+  }
+  
+  .contact-card, .contact-links {
+    padding: 16px;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    padding: 12px;
+    font-size: 16px;
+  }
+  
+  .contact-form .btn {
+    width: 100%;
+    padding: 12px;
+    min-height: 44px;
+  }
+  
+  /* Улучшаем touch targets */
+  .contact-links a {
+    display: block;
+    padding: 8px 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .contact-form {
+    margin-top: 8px;
+  }
+}

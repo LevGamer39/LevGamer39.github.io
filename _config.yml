@@ -1,0 +1,9 @@
+title: LevGamer39
+description: Системный разработчик и энтузиаст электроники
+theme: jekyll-theme-cayman
+include: [".htaccess"]
+plugins:
+  - jekyll-optional-front-matter
+
+# Убирает .html из URL
+permalink: pretty

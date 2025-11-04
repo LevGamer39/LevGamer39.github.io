@@ -1,0 +1,102 @@
+/* css/terminal.css */
+/* ВСЕ стили терминала */
+
+/* === Терминал === */
+.terminal {
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  background: var(--panel);
+  overflow: hidden;
+  width: 100%;
+  margin: 32px auto 0;
+}
+
+.terminal-header {
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--accent);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.term-output {
+  height: 190px;
+  overflow-y: auto;
+  padding: 12px 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: var(--muted);
+  background: #0f1417;
+}
+
+.term-input-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.prompt {
+  color: var(--accent);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+#terminal-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  color: var(--text);
+  outline: none;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  padding: 6px 0;
+}
+
+/* аккуратный скролл */
+.term-output::-webkit-scrollbar {
+  width: 6px;
+}
+
+.term-output::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+/* mobile tweak */
+@media (max-width: 768px) {
+  .terminal {
+    margin: 24px auto 0;
+  }
+  
+  .term-output {
+    height: 150px;
+    padding: 10px 12px;
+  }
+  
+  .terminal-header,
+  .term-input-row {
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminal {
+    margin: 20px auto 0;
+  }
+  
+  .term-output {
+    height: 120px;
+  }
+  
+  .prompt {
+    font-size: 12px;
+  }
+  
+  #terminal-input {
+    font-size: 12px;
+  }
+}

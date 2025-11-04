@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LevGamer39 — Главная</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/terminal.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">LevGamer39</div>
+    <button class="mobile-menu-btn" id="mobile-menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="nav" id="main-nav">
+      <a href="index.html" class="nav-link active">Главная</a>
+      <a href="projects.html" class="nav-link">Проекты</a>
+      <a href="skills.html" class="nav-link">Навыки</a>
+      <a href="contact.html" class="nav-link">Контакты</a>
+    </nav>
+    <div class="user">LevGamer39</div>
+  </header>
+
+  <main class="container">
+    <!-- остальной контент без изменений -->
+    <section class="hero">
+      <h1 class="title">Lev Kirillov</h1>
+      <p class="subtitle">Системный разработчик и энтузиаст электроники</p>
+      <p class="lead">Создаю решения на стыке кода и железа — C++, C#, backend и embedded.</p>
+
+      <div class="actions">
+        <a class="btn" href="https://github.com/LevGamer39" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn ghost" href="projects.html">Проекты</a>
+        <a class="btn ghost" href="contact.html">Контакты</a>
+      </div>
+    </section>
+
+    <section class="about-skills">
+      <div class="about-card">
+        <h2>Обо мне</h2>
+        <p>Работаю с системным и прикладным кодом на C++ и C#. Увлекаюсь электроникой, ARM-платформами (Raspberry Pi, ESP) и интеграцией железа в софт. Создаю свои инструменты для Linux и микроконтроллеров, оптимизирую backend и инфраструктуру.</p>
+      </div>
+
+      <aside class="preview-card">
+        <h3>Короткий обзор</h3>
+        <ul>
+          <li>C++ / C# — системное и прикладное ПО</li>
+          <li>Linux, Bash — автоматизация и сборки</li>
+          <li>Embedded — Raspberry Pi, ESP</li>
+          <li>Backend — API и инфраструктура</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="skills-cards">
+      <h3>Навыки</h3>
+      <div class="grid-3">
+        <div class="card">
+          <h4>Языки</h4>
+          <p>C++, C#</p>
+        </div>
+        <div class="card">
+          <h4>Технологии</h4>
+          <p>Linux, Bash, Backend</p>
+        </div>
+        <div class="card">
+          <h4>Электроника</h4>
+          <p>Raspberry Pi, ESP, ARM</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="terminal">
+      <div class="terminal-header">lev@LevGamer39:~</div>
+      <div class="term-output" id="terminal-output"></div>
+      <div class="term-input-row">
+        <span class="prompt">lev@LevGamer39:~$</span>
+        <input type="text" id="terminal-input" autocomplete="off" />
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div>© 2025 LevGamer39</div>
+    <div class="status">Made with logic &amp; open source</div>
+  </footer>
+
+  <script src="js/terminal.js"></script>
+  <script src="js/mobile-menu.js"></script>
+  <script src="js/redirect.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+:root{
+  --bg:#0e141a;
+  --panel:#161d23;
+  --text:#E6E9EF;
+  --muted:#A8A8A8;
+  --accent:#4DA3FF;
+  --success:#3BA55D;
+  --danger:#E05C5C;
+  --card-border:#1f2a33;
+  --card-radius:12px;
+  --max-width:1200px;
+  --gap:24px;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Reset */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+
+/* Topbar */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 32px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  border-bottom:1px solid var(--card-border);
+}
+.brand{font-weight:700;font-size:18px;color:var(--accent)}
+.nav{display:flex;gap:18px}
+.nav-link{color:var(--muted);text-decoration:none;padding:6px 8px;border-radius:6px}
+.nav-link.active{color:var(--text);background:rgba(77,163,255,0.06)}
+.user{color:var(--muted)}
+
+/* Mobile Navigation */
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-menu-btn span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--text);
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+/* Layout */
+.container{
+  max-width:var(--max-width);
+  margin:28px auto;
+  padding:0 24px;
+  display:grid;
+  gap:32px
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 20px;
+  border-top: 1px solid var(--card-border);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Cards */
+.card {
+  background:var(--panel);
+  padding:18px;
+  border-radius:var(--card-radius);
+  border:1px solid var(--card-border)
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--text);
+  line-height: 1.6;
+  background-color: var(--bg);
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 0.8rem;
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.4rem; }
+h4 { font-size: 1.1rem; }
+
+p, li, input, button {
+  line-height: 1.6;
+}
+
+.btn {
+  font-size: 0.95rem;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-top: 1px solid var(--card-border);
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 12px 16px;
+    position: relative;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--panel);
+    border: 1px solid var(--card-border);
+    border-top: none;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+    display: none;
+    z-index: 1000;
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .user {
+    display: none;
+  }
+  
+  .container {
+    padding: 0 1rem;
+    margin: 1.5rem auto;
+  }
+  
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.3rem; }
+  
+  .nav {
+    gap: 10px;
+  }
+  
+  .footer {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+  
+  /* Улучшения для touch-устройств */
+  .nav-link, .btn, .link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  input, textarea, button {
+    font-size: 16px;
+  }
+  
+  /* Улучшаем читаемость */
+  body {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  .topbar {
+    padding: 10px 12px;
+  }
+  
+  .brand {
+    font-size: 16px;
+  }
+  
+  h1 { font-size: 1.7rem; }
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.2rem; }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 10px;
+  }
+}
