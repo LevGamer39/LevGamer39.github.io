@@ -166,9 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return true;
     }
     
-    // Проверка на URL (http, https или без протокола)
     const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
-    // Проверка на юзернейм (начинается с @, содержит буквы, цифры, точки, подчеркивания)
     const usernameRegex = /^@[a-zA-Z0-9_.]{3,30}$/;
     
     if (urlRegex.test(value) || usernameRegex.test(value)) {
@@ -259,7 +257,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		return false;
 	  }
 	  
-	  // Проверка на кириллицу
 	  if (/[а-яА-Я]/.test(value)) {
 		showFieldError(this, 'Email не должен содержать русские буквы');
 		return false;
