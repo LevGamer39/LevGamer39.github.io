@@ -590,7 +590,8 @@
   }
   
   .telegram-badge {
-    align-self: flex-start;
+    align-self: center;
+    margin: 0 auto;
   }
   
   .form-input,
@@ -634,7 +635,6 @@
   }
 }
 
-/* ОСНОВНОЕ ИСПРАВЛЕНИЕ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
 @media (max-width: 480px) {
   .contact-hero h1 {
     font-size: 1.8rem;
@@ -650,7 +650,6 @@
     padding: 14px;
   }
   
-  /* ФИКС ДЛЯ КНОПОК - УБИРАЕМ ВСЕ ОТСТУПЫ */
   .form-actions {
     gap: 10px;
     margin: 16px 0;
@@ -666,6 +665,17 @@
     margin: 0;
   }
   
+  .card-header {
+    align-items: center;
+    text-align: center;
+  }
+  
+  .telegram-badge {
+    align-self: center;
+    margin: 0 auto;
+    justify-content: center;
+  }
+  
   .link-item {
     margin-bottom: 6px;
   }
@@ -679,7 +689,6 @@
   }
 }
 
-/* ФИНАЛЬНОЕ ИСПРАВЛЕНИЕ ДЛЯ ОЧЕНЬ МАЛЕНЬКИХ ЭКРАНОВ (451px и меньше) */
 @media (max-width: 451px) {
   .contact-card, .contact-links {
     padding: 12px;
@@ -709,7 +718,20 @@
     border-radius: 8px;
   }
   
-  /* ГАРАНТИРУЕМ, ЧТО КНОПКИ ЗАНИМАЮТ ВСЮ ШИРИНУ БЕЗ ОСТАТОЧНЫХ ОТСТУПОВ */
+  .card-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+  
+  .telegram-badge {
+    align-self: center;
+    margin: 0 auto;
+    justify-content: center;
+    width: fit-content;
+  }
+  
   .contact-form {
     margin: 0;
     padding: 0;
@@ -728,7 +750,6 @@
   }
 }
 
-/* ДОПОЛНИТЕЛЬНЫЙ ФИКС ДЛЯ СВЕРХМАЛЕНЬКИХ ЭКРАНОВ */
 @media (max-width: 360px) {
   .contact-hero h1 {
     font-size: 1.6rem;
@@ -757,6 +778,11 @@
     font-size: 13px;
   }
   
+  .telegram-badge {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  
   .contact-link {
     padding: 10px;
     min-height: 44px;
@@ -767,7 +793,6 @@
   }
 }
 
-/* АБСОЛЮТНОЕ УСТРАНЕНИЕ ОСТАТОЧНЫХ ОТСТУПОВ */
 #contact-page .container {
   box-sizing: border-box;
 }
@@ -780,7 +805,6 @@
   box-sizing: border-box;
 }
 
-/* ГАРАНТИЯ ПОЛНОГО ЗАПОЛНЕНИЯ ШИРИНЫ */
 .form-actions .btn {
   flex: 1 1 100%;
   width: 100%;
