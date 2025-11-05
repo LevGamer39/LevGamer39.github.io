@@ -57,7 +57,11 @@
 
 /* Форма */
 .honeypot {
-  display: none;
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
 }
 
 .form-row {

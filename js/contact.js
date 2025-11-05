@@ -252,21 +252,27 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function validateEmail() {
-    const value = this.value.trim();
-    
-    if (!value) {
-      showFieldError(this, 'Email обязателен для заполнения');
-      return false;
-    }
-    
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      showFieldError(this, 'Введите корректный email адрес');
-      return false;
-    }
-    
-    clearFieldError(this);
-    return true;
-  }
+	  const value = this.value.trim();
+	  
+	  if (!value) {
+		showFieldError(this, 'Email обязателен для заполнения');
+		return false;
+	  }
+	  
+	  // Проверка на кириллицу
+	  if (/[а-яА-Я]/.test(value)) {
+		showFieldError(this, 'Email не должен содержать русские буквы');
+		return false;
+	  }
+	  
+	  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+		showFieldError(this, 'Введите корректный email адрес');
+		return false;
+	  }
+	  
+	  clearFieldError(this);
+	  return true;
+	}
 
   function validateSelect() {
     if (!this.value) {
