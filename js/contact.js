@@ -1,399 +1,378 @@
-// contact.js - защищенная версия с Telegram ботом и валидацией
 document.addEventListener('DOMContentLoaded', function() {
+  const API_BASE_URL = 'https://levgamer39.pythonanywhere.com';
   const form = document.getElementById('contact-form');
-  const messageField = document.getElementById('c-msg');
+  const statusMessage = document.getElementById('form-status');
   const charCounter = document.querySelector('.char-counter');
-  const statusMessage = document.createElement('div');
-  const phoneField = document.getElementById('c-phone');
+  const messageField = document.getElementById('c-msg');
+  const submitBtn = document.getElementById('submit-btn');
+  const clearBtn = document.getElementById('clear-form');
   
-  // Конфигурация (ЗАМЕНИТЕ на ваши реальные значения)
-  const CONFIG = {
-    // PythonAnywhere бот URL (замените yourusername на ваш)
-    pythonAnywhereBot: 'https://yourusername.pythonanywhere.com/api/send-message',
-    
-    // Публичный API токен (можно менять)
-    apiToken: 'levgamer39-public-token-2024',
-    
-    // Резервный email
-    fallbackEmail: 'mailto:your-email@example.com',
-    
-    // Настройки защиты
-    maxMessageLength: 1000,
-    minMessageLength: 10,
-    rateLimitDelay: 2000 // 2 секунды между запросами
-  };
-
-  // Защита от частых отправок
-  let lastSubmissionTime = 0;
-  let isSubmitting = false;
-
   if (!form) return;
 
-  // Инициализация UI
-  statusMessage.className = 'status-message';
-  form.parentNode.insertBefore(statusMessage, form.nextSibling);
+  initContactForm();
 
-  // Инициализация маски телефона
-  initPhoneMask();
+  function initContactForm() {
+    if (messageField && charCounter) {
+      messageField.addEventListener('input', function() {
+        updateCharCounter.call(this);
+        autoResizeTextarea.call(this);
+      });
+      autoResizeTextarea.call(messageField);
+    }
 
-  // Инициализация счетчика символов
-  initAutoResizeTextarea(); 
-  // Валидация в реальном времени
-  initRealTimeValidation();
+    const phoneField = document.getElementById('c-phone');
+    if (phoneField) {
+      phoneField.addEventListener('input', handlePhoneInput);
+      phoneField.addEventListener('keydown', handlePhoneKeydown);
+    }
 
-  // Основной обработчик отправки формы
-  form.addEventListener('submit', async function(e) {
+    const socialField = document.getElementById('c-social');
+    if (socialField) {
+      socialField.addEventListener('blur', validateSocial);
+    }
+
+    form.addEventListener('submit', handleFormSubmit);
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', clearForm);
+    }
+  }
+
+  function autoResizeTextarea() {
+    this.style.height = 'auto';
+    const newHeight = Math.min(this.scrollHeight, 300);
+    this.style.height = newHeight + 'px';
+    this.style.overflowY = newHeight >= 300 ? 'auto' : 'hidden';
+  }
+
+  function updateCharCounter() {
+    const maxLength = 1000;
+    const currentLength = this.value.length;
+    
+    if (charCounter) {
+      charCounter.textContent = `${currentLength}/${maxLength} символов`;
+      
+      charCounter.classList.remove('normal', 'warning', 'danger');
+      
+      if (currentLength >= maxLength) {
+        charCounter.classList.add('danger');
+        this.value = this.value.substring(0, maxLength);
+        charCounter.textContent = `${maxLength}/${maxLength} символов (лимит)`;
+      } else if (currentLength >= maxLength * 0.8) {
+        charCounter.classList.add('warning');
+      } else {
+        charCounter.classList.add('normal');
+      }
+    }
+  }
+
+  function handlePhoneInput(e) {
+    const input = e.target;
+    const value = input.value;
+    
+    const cursorPosition = input.selectionStart;
+    
+    let cleanValue = '';
+    let hasPlus = false;
+    
+    for (let i = 0; i < value.length; i++) {
+      const char = value[i];
+      if (i === 0 && char === '+') {
+        hasPlus = true;
+        cleanValue += '+';
+      } else if (/\d/.test(char)) {
+        cleanValue += char;
+      }
+    }
+    
+    if (!hasPlus && cleanValue.length > 0) {
+      if (cleanValue[0] === '8') {
+        cleanValue = '+7' + cleanValue.substring(1);
+      } else {
+        cleanValue = '+7' + cleanValue;
+      }
+    }
+    
+    const formattedValue = formatPhoneNumber(cleanValue);
+    input.value = formattedValue;
+    
+    input.setSelectionRange(formattedValue.length, formattedValue.length);
+  }
+
+  function formatPhoneNumber(value) {
+    if (!value || value === '+') return value;
+    if (value === '+') return '+';
+    
+    const digits = value.substring(1).replace(/\D/g, '');
+    if (digits.length === 0) return '+';
+    
+    let result = '+7';
+    
+    if (digits.length > 1) {
+      result += ` (${digits.substring(1, 4)}`;
+    }
+    if (digits.length > 4) {
+      result += `) ${digits.substring(4, 7)}`;
+    }
+    if (digits.length > 7) {
+      result += `-${digits.substring(7, 9)}`;
+    }
+    if (digits.length > 9) {
+      result += `-${digits.substring(9, 11)}`;
+    }
+    
+    return result;
+  }
+
+  function handlePhoneKeydown(e) {
+    const input = e.target;
+    const cursorPos = input.selectionStart;
+    const value = input.value;
+    
+    const allowedKeys = [
+      'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 
+      'Tab', 'Home', 'End', 'Enter'
+    ];
+    
+    if (allowedKeys.includes(e.key)) {
+      if (e.key === 'Backspace' && cursorPos === 1 && value.startsWith('+')) {
+        return;
+      }
+      return;
+    }
+    
+    if ((e.ctrlKey || e.metaKey) && 
+        (e.key === 'a' || e.key === 'c' || e.key === 'v' || e.key === 'x')) {
+      return;
+    }
+    
+    if (e.key === '+' && cursorPos === 0 && !value.startsWith('+')) {
+      return;
+    }
+    
+    if (/\d/.test(e.key)) {
+      return;
+    }
+    
+    e.preventDefault();
+  }
+
+  // Проверка соцсети - ссылка или юзернейм
+  function validateSocial() {
+    const value = this.value.trim();
+    
+    if (!value) {
+      clearFieldError(this);
+      return true;
+    }
+    
+    // Проверка на URL (http, https или без протокола)
+    const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
+    // Проверка на юзернейм (начинается с @, содержит буквы, цифры, точки, подчеркивания)
+    const usernameRegex = /^@[a-zA-Z0-9_.]{3,30}$/;
+    
+    if (urlRegex.test(value) || usernameRegex.test(value)) {
+      clearFieldError(this);
+      return true;
+    } else {
+      showFieldError(this, 'Введите ссылку (https://example.com) или юзернейм (@username)');
+      return false;
+    }
+  }
+
+  async function handleFormSubmit(e) {
     e.preventDefault();
     
-    if (isSubmitting) {
-      showStatus('Пожалуйста, подождите...', 'warning');
-      return;
-    }
-
-    // Защита от частых отправок
-    const now = Date.now();
-    if (now - lastSubmissionTime < CONFIG.rateLimitDelay) {
-      showStatus('Слишком частые запросы. Подождите немного.', 'warning');
-      return;
-    }
-
     hideStatus();
     clearAllErrors();
     
-    if (!validateForm()) {
-      showStatus('Пожалуйста, исправьте ошибки в форме', 'error');
+    if (!validateAllFields()) {
+      showStatus('❌ Пожалуйста, исправьте ошибки в форме', 'error');
       return;
     }
-
-    // Проверка honeypot поля
-    if (document.querySelector('input[name="bot-field"]').value) {
-      console.log('Bot detected');
-      showStatus('Ошибка безопасности', 'error');
-      return;
-    }
-
-    await submitForm();
-  });
-
-  // Кнопка очистки формы
-  const clearBtn = document.getElementById('clear-form');
-  if (clearBtn) {
-    clearBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      clearForm();
-    });
-  }
-
-  // ==================== ОСНОВНЫЕ ФУНКЦИИ ====================
-
-  async function submitForm() {
-    isSubmitting = true;
-    lastSubmissionTime = Date.now();
     
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalContent = submitBtn.innerHTML;
+    setLoadingState(true);
     
-    // Показываем индикатор загрузки
-    submitBtn.innerHTML = '<span class="btn-icon">⏳</span><span class="btn-text">Отправка...</span>';
-    submitBtn.disabled = true;
-
     try {
-      // Пытаемся отправить через Telegram бота
-      await sendViaTelegramBot();
+      const formData = prepareFormData();
+      const result = await sendToAPI(formData);
       
-      showStatus('✅ Сообщение успешно отправлено! Я свяжусь с вами в ближайшее время.', 'success');
-      clearForm();
+      if (result.success) {
+        showStatus('✅ Сообщение отправлено! Отвечу в течение 1-2 часов.', 'success');
+        resetForm();
+        
+        setTimeout(() => {
+          hideStatus();
+        }, 5000);
+      } else {
+        throw new Error(result.error || 'Ошибка отправки');
+      }
       
     } catch (error) {
-      console.error('Ошибка отправки:', error);
-      
-      if (error.includes('Rate limit') || error.includes('429')) {
-        showStatus('❌ Слишком много запросов. Пожалуйста, попробуйте позже.', 'error');
-      } else if (error.includes('Network') || error.includes('Failed to fetch')) {
-        showStatus('❌ Проблемы с сетью. Проверьте подключение к интернету.', 'error');
-      } else {
-        // Показываем резервный вариант
-        showFallbackOption();
-      }
+      showStatus('❌ Ошибка отправки: ' + error.message, 'error');
     } finally {
-      // Восстанавливаем кнопку
-      submitBtn.innerHTML = originalContent;
-      submitBtn.disabled = false;
-      isSubmitting = false;
+      setLoadingState(false);
     }
   }
 
-  async function sendViaTelegramBot() {
-    const formData = getFormData();
-    
-    const payload = {
-      ...formData,
-      timestamp: Date.now(),
-      source: 'levgamer39-website'
-    };
-
-    const response = await fetch(CONFIG.pythonAnywhereBot, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${CONFIG.apiToken}`
-      },
-      body: JSON.stringify(payload)
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`HTTP ${response.status}: ${errorText}`);
-    }
-
-    const result = await response.json();
-    if (!result.success) {
-      throw new Error(result.error || 'Unknown error from bot');
-    }
-  }
-
-  function showFallbackOption() {
-    const formData = getFormData();
-    const emailBody = formatEmailBody(formData);
-    const emailSubject = `Сообщение с сайта LevGamer39: ${formData.subject}`;
-    
-    createFallbackModal(emailSubject, emailBody);
-    showStatus('❌ Автоматическая отправка недоступна. Используйте альтернативный способ ниже.', 'error');
-  }
-
-  // ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
-
-  function initPhoneMask() {
-    if (!phoneField) return;
-
-    phoneField.addEventListener('input', function(e) {
-      let value = e.target.value.replace(/\D/g, '');
-      
-      if (value.length > 0) {
-        // Убираем код страны если он есть
-        if (value[0] === '7' || value[0] === '8') {
-          value = value.substring(1);
-        }
-        
-        let formattedValue = '+7 ';
-        
-        if (value.length > 0) {
-          formattedValue += '(' + value.substring(0, 3);
-        }
-        if (value.length >= 4) {
-          formattedValue += ') ' + value.substring(3, 6);
-        }
-        if (value.length >= 7) {
-          formattedValue += '-' + value.substring(6, 8);
-        }
-        if (value.length >= 9) {
-          formattedValue += '-' + value.substring(8, 10);
-        }
-        
-        e.target.value = formattedValue;
-      }
-    });
-
-    // Валидация формата при потере фокуса
-    phoneField.addEventListener('blur', function() {
-      if (this.value && !this.value.match(/\+7\s\(\d{3}\)\s\d{3}-\d{2}-\d{2}/)) {
-        showError(this, 'Неверный формат телефона');
-      }
-    });
-  }
-
-  function initCharCounter() {
-    if (!messageField || !charCounter) return;
-
-    messageField.addEventListener('input', function() {
-      const currentLength = this.value.length;
-      charCounter.textContent = `${currentLength}/${CONFIG.maxMessageLength} символов`;
-      
-      charCounter.classList.remove('warning', 'error');
-      if (currentLength > CONFIG.maxMessageLength * 0.8) {
-        charCounter.classList.add('warning');
-      }
-      if (currentLength > CONFIG.maxMessageLength) {
-        charCounter.classList.add('error');
-      }
-    });
-  }
-
-  function initRealTimeValidation() {
-    // Валидация email в реальном времени
-    const emailField = document.getElementById('c-email');
-    emailField.addEventListener('blur', function() {
-      if (this.value && !isValidEmail(this.value)) {
-        showError(this, 'Введите корректный email адрес');
-      } else {
-        clearError(this);
-      }
-    });
-
-    // Валидация имен (только буквы)
-    const nameFields = ['c-lastname', 'c-firstname', 'c-middlename'];
-    nameFields.forEach(fieldId => {
-      const field = document.getElementById(fieldId);
-      if (field) {
-        field.addEventListener('input', function() {
-          // Сохраняем позицию курсора
-          const cursorPosition = this.selectionStart;
-          
-          this.value = this.value.replace(/[^a-zA-Zа-яА-ЯёЁ\s\-]/g, '');
-          
-          // Восстанавливаем позицию курсора
-          this.setSelectionRange(cursorPosition, cursorPosition);
-        });
-
-        field.addEventListener('blur', function() {
-          if (this.value && !this.value.match(/^[A-Za-zА-Яа-яЁё\s\-]+$/)) {
-            showError(this, 'Можно использовать только буквы, пробелы и дефисы');
-          }
-        });
-      }
-    });
-  }
-
-  function validateForm() {
+  function validateAllFields() {
     let isValid = true;
-    clearAllErrors();
-
-    // Проверка обязательных полей
+    
     const requiredFields = [
-      { id: 'c-lastname', name: 'Фамилия' },
-      { id: 'c-firstname', name: 'Имя' },
-      { id: 'c-email', name: 'Email' },
-      { id: 'c-subject', name: 'Тема сообщения' },
-      { id: 'c-msg', name: 'Сообщение' }
+      { id: 'c-lastname', validator: validateRequired },
+      { id: 'c-firstname', validator: validateRequired },
+      { id: 'c-email', validator: validateEmail },
+      { id: 'c-subject', validator: validateSelect },
+      { id: 'c-msg', validator: validateMessage }
     ];
-
-    requiredFields.forEach(field => {
-      const element = document.getElementById(field.id);
-      if (!element.value.trim()) {
-        showError(element, `Поле "${field.name}" обязательно для заполнения`);
+    
+    requiredFields.forEach(({ id, validator }) => {
+      const field = document.getElementById(id);
+      if (field && !validator.call(field)) {
         isValid = false;
       }
     });
 
-    // Валидация email
-    const emailField = document.getElementById('c-email');
-    if (emailField.value && !isValidEmail(emailField.value)) {
-      showError(emailField, 'Введите корректный email адрес');
+    const socialField = document.getElementById('c-social');
+    if (socialField && socialField.value.trim() && !validateSocial.call(socialField)) {
       isValid = false;
     }
-
-    // Валидация длины сообщения
-    if (messageField.value.length < CONFIG.minMessageLength) {
-      showError(messageField, `Сообщение должно содержать минимум ${CONFIG.minMessageLength} символов`);
-      isValid = false;
-    }
-
-    if (messageField.value.length > CONFIG.maxMessageLength) {
-      showError(messageField, `Сообщение слишком длинное (максимум ${CONFIG.maxMessageLength} символов)`);
-      isValid = false;
-    }
-
-    // Проверка согласия
-    const agreementField = document.getElementById('c-agreement');
-    if (!agreementField.checked) {
-      showError(agreementField, 'Необходимо согласие на обработку данных');
-      isValid = false;
-    }
-
+    
     return isValid;
   }
 
-  function getFormData() {
+  function validateRequired() {
+    const value = this.value.trim();
+    if (!value) {
+      showFieldError(this, 'Это поле обязательно для заполнения');
+      return false;
+    }
+    clearFieldError(this);
+    return true;
+  }
+
+  function validateEmail() {
+    const value = this.value.trim();
+    
+    if (!value) {
+      showFieldError(this, 'Email обязателен для заполнения');
+      return false;
+    }
+    
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      showFieldError(this, 'Введите корректный email адрес');
+      return false;
+    }
+    
+    clearFieldError(this);
+    return true;
+  }
+
+  function validateSelect() {
+    if (!this.value) {
+      showFieldError(this, 'Пожалуйста, выберите тему сообщения');
+      return false;
+    }
+    
+    clearFieldError(this);
+    return true;
+  }
+
+  function validateMessage() {
+    const value = this.value.trim();
+    const minLength = 10;
+    const maxLength = 1000;
+    
+    if (!value) {
+      showFieldError(this, 'Сообщение обязательно для заполнения');
+      return false;
+    }
+    
+    if (value.length < minLength) {
+      showFieldError(this, `Минимум ${minLength} символов`);
+      return false;
+    }
+    
+    if (value.length > maxLength) {
+      showFieldError(this, `Максимум ${maxLength} символов`);
+      return false;
+    }
+    
+    clearFieldError(this);
+    return true;
+  }
+
+  function prepareFormData() {
     return {
-      lastName: document.getElementById('c-lastname').value.trim(),
-      firstName: document.getElementById('c-firstname').value.trim(),
+      lastname: document.getElementById('c-lastname').value.trim(),
+      firstname: document.getElementById('c-firstname').value.trim(),
       middlename: document.getElementById('c-middlename').value.trim(),
-      email: document.getElementById('c-email').value.trim(),
       phone: document.getElementById('c-phone').value.trim(),
+      email: document.getElementById('c-email').value.trim(),
+      social: document.getElementById('c-social').value.trim(),
       subject: document.getElementById('c-subject').value,
       message: document.getElementById('c-msg').value.trim(),
-      agreement: document.getElementById('c-agreement').checked
+      source: 'portfolio-site'
     };
   }
 
-  function formatEmailBody(data) {
-    const fullName = `${data.lastName} ${data.firstName} ${data.middlename || ''}`.trim();
-    
-    return `
-ФИО: ${fullName}
-Email: ${data.email}
-Телефон: ${data.phone || 'Не указан'}
-Тема: ${data.subject}
-
-Сообщение:
-${data.message}
-
----
-Отправлено с сайта LevGamer39
-Время: ${new Date().toLocaleString('ru-RU')}
-    `.trim();
-  }
-
-  function createFallbackModal(subject, body) {
-    const modal = document.createElement('div');
-    modal.className = 'fallback-modal';
-    modal.innerHTML = `
-      <div class="modal-content">
-        <h3>📧 Альтернативный способ отправки</h3>
-        <p>Автоматическая отправка временно недоступна. Вы можете:</p>
-        
-        <div class="fallback-options">
-          <a href="${CONFIG.fallbackEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}" 
-             class="btn" style="margin: 10px 0; text-align: center; display: block;">
-            <span class="btn-icon">📧</span>
-            <span class="btn-text">Открыть в почтовом клиенте</span>
-          </a>
-          
-          <div style="margin: 20px 0;">
-            <p><strong>Или скопируйте текст ниже и отправьте вручную:</strong></p>
-            <textarea readonly class="fallback-textarea">${body}</textarea>
-            <button onclick="copyFormText()" class="btn secondary" style="width: 100%; margin-top: 10px;">
-              <span class="btn-icon">📋</span>
-              <span class="btn-text">Скопировать текст</span>
-            </button>
-          </div>
-        </div>
-        
-        <button onclick="this.closest('.fallback-modal').remove()" class="btn ghost" style="width: 100%; margin-top: 10px;">
-          Закрыть
-        </button>
-      </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Закрытие по клику вне модального окна
-    modal.addEventListener('click', function(e) {
-      if (e.target === modal) {
-        modal.remove();
+  async function sendToAPI(data) {
+    try {
+      const response = await fetch(API_BASE_URL + '/webhook/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
       }
-    });
-  }
-
-  function clearForm() {
-    form.reset();
-    clearAllErrors();
-    hideStatus();
-    if (charCounter) {
-      charCounter.textContent = `0/${CONFIG.maxMessageLength} символов`;
-      charCounter.classList.remove('warning', 'error');
+      
+      return await response.json();
+      
+    } catch (error) {
+      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+        throw new Error('Не удалось подключиться к серверу');
+      }
+      throw error;
     }
   }
 
-  // ==================== УТИЛИТЫ ====================
-
-  function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  function setLoadingState(loading) {
+    if (submitBtn) {
+      submitBtn.disabled = loading;
+      submitBtn.classList.toggle('loading', loading);
+    }
   }
 
-  function showError(field, message) {
-    field.style.borderColor = 'var(--danger)';
+  function resetForm() {
+    form.reset();
+    clearAllErrors();
+    if (charCounter) {
+      charCounter.textContent = '0/1000 символов';
+      charCounter.classList.remove('warning', 'danger');
+      charCounter.classList.add('normal');
+    }
+    if (messageField) {
+      messageField.style.height = 'auto';
+      messageField.style.overflowY = 'hidden';
+    }
+  }
+
+  function clearForm(e) {
+    if (e) e.preventDefault();
+    
+    if (confirm('Очистить все поля формы?')) {
+      resetForm();
+      hideStatus();
+    }
+  }
+
+  function showFieldError(field, message) {
+    field.classList.add('invalid');
+    field.classList.remove('valid');
     
     let errorElement = field.parentNode.querySelector('.error-message');
     if (!errorElement) {
@@ -402,14 +381,11 @@ ${data.message}
       field.parentNode.appendChild(errorElement);
     }
     errorElement.textContent = message;
-    
-    // Анимация "тряски" для поля
-    field.classList.add('shake');
-    setTimeout(() => field.classList.remove('shake'), 500);
   }
 
-  function clearError(field) {
-    field.style.borderColor = '';
+  function clearFieldError(field) {
+    field.classList.remove('invalid');
+    field.classList.add('valid');
     const errorElement = field.parentNode.querySelector('.error-message');
     if (errorElement) {
       errorElement.remove();
@@ -417,9 +393,9 @@ ${data.message}
   }
 
   function clearAllErrors() {
-    const fields = form.querySelectorAll('input, select, textarea');
+    const fields = form.querySelectorAll('.form-input, .form-select, .form-textarea');
     fields.forEach(field => {
-      field.style.borderColor = '';
+      field.classList.remove('invalid', 'valid');
       const errorElement = field.parentNode.querySelector('.error-message');
       if (errorElement) {
         errorElement.remove();
@@ -428,98 +404,16 @@ ${data.message}
   }
 
   function showStatus(message, type) {
-    statusMessage.textContent = message;
-    statusMessage.className = `status-message ${type}`;
+    if (statusMessage) {
+      statusMessage.textContent = message;
+      statusMessage.className = `status-message ${type}`;
+      statusMessage.style.display = 'block';
+    }
   }
 
   function hideStatus() {
-    statusMessage.className = 'status-message';
-  }
-
-  // Глобальная функция для копирования текста
-  window.copyFormText = function() {
-    const textarea = document.querySelector('.fallback-textarea');
-    textarea.select();
-    
-    try {
-      const successful = document.execCommand('copy');
-      const btn = document.querySelector('.fallback-modal .btn.secondary');
-      const originalHTML = btn.innerHTML;
-      
-      if (successful) {
-        btn.innerHTML = '<span class="btn-icon">✅</span><span class="btn-text">Скопировано!</span>';
-        setTimeout(() => {
-          btn.innerHTML = originalHTML;
-        }, 2000);
-      }
-    } catch (err) {
-      console.error('Copy failed:', err);
-      alert('Не удалось скопировать текст. Скопируйте вручную.');
+    if (statusMessage) {
+      statusMessage.style.display = 'none';
     }
-  };
+  }
 });
-// Функция авто-высоты textarea
-function initAutoResizeTextarea() {
-  const textarea = document.getElementById('c-msg');
-  if (!textarea) return;
-
-  function autoResize() {
-    // Сбрасываем высоту чтобы получить правильный scrollHeight
-    textarea.style.height = 'auto';
-    
-    // Устанавливаем новую высоту
-    const newHeight = Math.min(textarea.scrollHeight, 400); // 400px максимум
-    textarea.style.height = newHeight + 'px';
-    
-    // Обновляем счетчик символов
-    updateCharCounter();
-  }
-
-  function updateCharCounter() {
-    if (!charCounter) return;
-    const currentLength = textarea.value.length;
-    charCounter.textContent = `${currentLength}/${CONFIG.maxMessageLength} символов`;
-    
-    charCounter.classList.remove('warning', 'error');
-    if (currentLength > CONFIG.maxMessageLength * 0.8) {
-      charCounter.classList.add('warning');
-    }
-    if (currentLength > CONFIG.maxMessageLength) {
-      charCounter.classList.add('error');
-    }
-  }
-
-  // События для авто-высоты
-  textarea.addEventListener('input', autoResize);
-  textarea.addEventListener('focus', autoResize);
-  textarea.addEventListener('change', autoResize);
-  
-  // Инициализация при загрузке
-  setTimeout(autoResize, 100);
-}
-
-// Обновленная функция инициализации счетчика символов
-function initCharCounter() {
-  const textarea = document.getElementById('c-msg');
-  if (!textarea || !charCounter) return;
-
-  function updateCounter() {
-    const currentLength = textarea.value.length;
-    charCounter.textContent = `${currentLength}/${CONFIG.maxMessageLength} символов`;
-    
-    charCounter.classList.remove('warning', 'error');
-    if (currentLength > CONFIG.maxMessageLength * 0.8) {
-      charCounter.classList.add('warning');
-    }
-    if (currentLength > CONFIG.maxMessageLength) {
-      charCounter.classList.add('error');
-      // Обрезаем текст если превышен лимит
-      textarea.value = textarea.value.substring(0, CONFIG.maxMessageLength);
-    }
-  }
-
-  textarea.addEventListener('input', updateCounter);
-  
-  // Инициализация
-  updateCounter();
-}
