@@ -178,10 +178,11 @@ p, li, input, button {
     padding: 12px;
     border-radius: 8px;
     text-align: center;
-    min-height: 44px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 16px;
   }
 
   .user {
@@ -209,13 +210,13 @@ p, li, input, button {
   
   /* Улучшения для touch-устройств */
   .nav-link, .btn, .link {
-    min-height: 44px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   
-  input, textarea, button {
+  input, textarea, button, select {
     font-size: 16px;
   }
   
@@ -243,10 +244,49 @@ p, li, input, button {
   h1 { font-size: 1.7rem; }
   h2 { font-size: 1.4rem; }
   h3 { font-size: 1.2rem; }
+  
+  .footer {
+    padding: 16px;
+    font-size: 14px;
+  }
 }
 
+/* Для сверхмалых экранов */
 @media (max-width: 360px) {
   .container {
     padding: 0 10px;
+  }
+  
+  .topbar {
+    padding: 8px 10px;
+  }
+  
+  .brand {
+    font-size: 15px;
+  }
+  
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  h3 { font-size: 1.1rem; }
+  
+  .footer {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+/* Улучшения для touch-устройств */
+@media (max-width: 768px) {
+  .btn, .nav-link, .contact-link, .link {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Улучшаем форму на мобильных */
+  .form-input, .form-select {
+    min-height: 48px;
+    font-size: 16px;
   }
 }

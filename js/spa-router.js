@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   const pages = document.querySelectorAll('.page');
   const navLinks = document.querySelectorAll('.nav-link');
-  const btnLinks = document.querySelectorAll('.btn[data-page]');
   
   function showPage(pageId) {
     // Скрыть все страницы
@@ -26,26 +25,29 @@ document.addEventListener('DOMContentLoaded', function() {
     window.scrollTo(0, 0);
   }
   
-  // Обработчик клика по навигационным ссылкам
-  navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const pageId = this.getAttribute('data-page');
-      showPage(pageId);
-      history.replaceState(null, null, ' ');
-    });
+  // Обработчик для ВСЕХ элементов с data-page
+  function handlePageClick(e) {
+    e.preventDefault();
+    const pageId = this.getAttribute('data-page');
+    showPage(pageId);
+    // Очищаем URL
+    history.replaceState(null, null, window.location.pathname + window.location.search);
+  }
+  
+  // Находим все элементы с data-page (ссылки, кнопки и т.д.)
+  const pageElements = document.querySelectorAll('[data-page]');
+  pageElements.forEach(element => {
+    element.addEventListener('click', handlePageClick);
   });
   
-  // Обработчик для кнопок с data-page
-  btnLinks.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      const pageId = this.getAttribute('data-page');
-      showPage(pageId);
-      history.replaceState(null, null, ' ');
-    });
-  });
+  // Инициализация - показываем страницу на основе хэша или главную
+  const hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById(hash + '-page')) {
+    showPage(hash);
+  } else {
+    showPage('home');
+  }
   
-  // Инициализация - всегда показываем главную
-  showPage('home');
+  // Очищаем URL при загрузке
+  history.replaceState(null, null, window.location.pathname + window.location.search);
 });

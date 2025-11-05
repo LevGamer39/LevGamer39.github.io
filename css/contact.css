@@ -37,7 +37,7 @@
 }
 
 .telegram-badge {
-  background: linear-gradient(135deg, #0088cc, #00a2ff);
+  background: linear-gradient(135deg, #3BA55D, #4CAF50);
   color: white;
   padding: 6px 12px;
   border-radius: 20px;
@@ -137,12 +137,44 @@
   animation: shake 0.3s ease-in-out;
 }
 
+/* Улучшенные стили для выпадающего списка */
 .form-select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234DA3FF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  background-size: 16px;
+  background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234DA3FF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 16px center / 16px;
+  cursor: pointer;
+  color: var(--muted); /* По умолчанию серый цвет */
+}
+
+/* Когда выбрана валидная опция (не пустая) - белый текст в закрытом состоянии */
+.form-select:valid {
+  color: var(--text);
+}
+
+/* Стили для опций в выпадающем списке */
+.form-select option {
+  background: var(--panel);
+  color: var(--muted);
+  padding: 12px;
+  border: none;
+  font-size: 14px;
+}
+
+/* При наведении на опцию - подсветка */
+.form-select option:hover {
+  background: var(--accent);
+  color: white;
+}
+
+/* Выбранная опция в выпадающем списке - темный фон, серый текст */
+.form-select option:checked {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--muted);
+}
+
+/* Попытка переопределить системные стили для выбранной опции */
+.form-select option:checked:focus {
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: var(--muted) !important;
 }
 
 /* Сообщение - убрана возможность растягивания и скролл */
@@ -202,81 +234,6 @@
   font-size: 11px;
   color: var(--muted);
   margin-top: 4px;
-}
-
-/* Исправленный чекбокс */
-.checkbox-group {
-  margin: 24px 0;
-}
-
-.checkbox-input {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--text);
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--card-border);
-}
-
-.checkbox-label:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--accent);
-}
-
-.checkmark {
-  width: 20px;
-  height: 20px;
-  border: 2px solid var(--card-border);
-  border-radius: 4px;
-  position: relative;
-  flex-shrink: 0;
-  margin-top: 2px;
-  transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.checkbox-input:checked + .checkbox-label .checkmark {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.checkbox-input:checked + .checkbox-label .checkmark::after {
-  content: '✓';
-  color: white;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1;
-}
-
-.checkbox-input:focus + .checkbox-label .checkmark {
-  box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.2);
-}
-
-.privacy-link {
-  color: var(--accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease;
-}
-
-.privacy-link:hover {
-  border-bottom-color: var(--accent);
 }
 
 /* Кнопки */
@@ -423,6 +380,7 @@
   color: var(--text);
   text-decoration: none;
   transition: all 0.3s ease;
+  min-height: 48px;
 }
 
 .contact-link:hover {
@@ -605,6 +563,10 @@
 }
 
 @media (max-width: 768px) {
+  .contact-hero {
+    margin-bottom: 30px;
+  }
+  
   .contact-hero h1 {
     font-size: 2rem;
   }
@@ -614,34 +576,58 @@
   }
   
   .contact-grid {
-    gap: 16px;
+    gap: 20px;
   }
   
   .contact-card, .contact-links {
     padding: 20px;
   }
   
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .telegram-badge {
+    align-self: flex-start;
+  }
+  
   .form-input,
+  .form-select,
   .form-textarea {
-    padding: 12px;
+    padding: 16px;
     font-size: 16px;
+    min-height: 48px;
+  }
+  
+  .form-textarea {
+    min-height: 120px;
   }
   
   .form-actions {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
   
   .btn {
     width: 100%;
     padding: 16px;
+    font-size: 16px;
+    min-height: 48px;
   }
   
   .contact-link {
-    padding: 12px;
+    padding: 16px;
+    min-height: 48px;
+  }
+  
+  .link-content {
+    font-size: 15px;
   }
   
   .info-item {
-    padding: 10px;
+    padding: 14px;
   }
 }
 
@@ -654,8 +640,46 @@
     padding: 16px;
   }
   
-  .checkbox-label {
-    font-size: 13px;
-    padding: 8px;
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 14px;
+  }
+  
+  .link-item {
+    margin-bottom: 6px;
+  }
+  
+  .contact-link {
+    padding: 14px;
+  }
+  
+  .info-item {
+    padding: 12px;
+  }
+}
+
+/* Для сверхмалых экранов */
+@media (max-width: 360px) {
+  .contact-hero h1 {
+    font-size: 1.6rem;
+  }
+  
+  .contact-card, .contact-links {
+    padding: 12px;
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 12px;
+  }
+  
+  .contact-link {
+    padding: 12px;
+  }
+  
+  .btn {
+    padding: 14px;
   }
 }

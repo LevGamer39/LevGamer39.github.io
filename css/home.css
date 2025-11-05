@@ -2,7 +2,6 @@
 .subtitle{font-size:1.25rem;color:var(--muted);margin:0 0 8px}
 .lead{color:var(--muted);margin-bottom:16px; font-size: 1rem;}
 
-
 .actions{display:flex;gap:14px}
 .btn{background:var(--panel);padding:12px 18px;border-radius:10px;color:var(--text);text-decoration:none;display:inline-block;box-shadow:0 6px 18px rgba(0,0,0,0.35)}
 .btn:hover{box-shadow:0 10px 26px rgba(77,163,255,0.06);transform:translateY(-2px)}
@@ -25,6 +24,8 @@
 @media (max-width: 768px) {
   .container {
     padding: 10px;
+    gap: 24px;
+    margin: 20px auto;
   }
 
   .footer {
@@ -32,9 +33,15 @@
     gap: 6px;
   }
   
+  .hero {
+    text-align: center;
+    padding: 20px 0;
+  }
+  
   .title {
     font-size: 2rem;
     text-align: center;
+    line-height: 1.2;
   }
   
   .subtitle {
@@ -45,20 +52,66 @@
   .lead {
     text-align: center;
     font-size: 0.95rem;
+    line-height: 1.5;
   }
   
   .actions {
     justify-content: center;
     flex-wrap: wrap;
+    gap: 12px;
   }
   
   .btn {
-    padding: 10px 16px;
-    font-size: 0.9rem;
-    min-height: 44px;
+    padding: 14px 20px;
+    font-size: 16px;
+    min-height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  
+  .about-card, .preview-card {
+    padding: 20px;
+  }
+  
+  .grid-3 .card {
+    padding: 16px;
+  }
+  
+  .about-skills {
+    gap: 20px;
+  }
+  
+  .skills-cards {
+    padding: 0;
+  }
+  
+  .grid-3 {
+    gap: 12px;
+  }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+  .hero {
+    padding: 16px 0;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+    padding: 16px 20px;
   }
   
   .about-card, .preview-card {
@@ -68,33 +121,23 @@
   .grid-3 .card {
     padding: 16px;
   }
-  
-  /* Улучшаем отступы для мобильных */
-  .container {
-    gap: 24px;
-    margin: 20px auto;
-  }
 }
 
-/* Для очень маленьких экранов */
-@media (max-width: 480px) {
+/* Для сверхмалых экранов */
+@media (max-width: 360px) {
   .title {
-    font-size: 1.8rem;
-  }
-  
-  .actions {
-    flex-direction: column;
-    align-items: center;
+    font-size: 1.7rem;
   }
   
   .btn {
-    width: 100%;
-    max-width: 200px;
-    text-align: center;
+    padding: 14px 16px;
+    font-size: 15px;
+  }
+  
+  .about-card, .preview-card {
+    padding: 14px;
   }
 }
-
-
 
 @media (max-width:1000px){
   .title{font-size:2.2rem}
