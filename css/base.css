@@ -99,14 +99,6 @@ html,body{
   transition: all 0.3s ease;
 }
 
-.mobile-logo {
-  display: none;
-}
-
-.desktop-logo {
-  display: block;
-}
-
 .user{
   display: flex;
   align-items: center;
@@ -408,17 +400,9 @@ p, li, div, span {
     transform: translateY(-1px);
   }
 
-  .desktop-logo {
-    display: none;
-  }
-  
-  .mobile-logo {
-    display: block;
-    height: 40px;
-  }
-  
-  .user-avatar {
-    display: none;
+  /* ОДИНАКОВОЕ ЛОГО НА ВСЕХ УСТРОЙСТВАХ */
+  .brand-logo {
+    height: 22px; /* Сохраняем тот же размер на мобильных */
   }
   
   .container {
@@ -478,8 +462,8 @@ p, li, div, span {
     height: 56px;
   }
   
-  .mobile-logo {
-    height: 35px;
+  .brand-logo {
+    height: 20px; /* Немного уменьшаем для очень маленьких экранов */
   }
   
   .mobile-menu-btn {
@@ -541,8 +525,8 @@ p, li, div, span {
     height: 52px;
   }
   
-  .mobile-logo {
-    height: 30px;
+  .brand-logo {
+    height: 18px; /* Еще немного уменьшаем для сверхмалых экранов */
   }
   
   .mobile-menu-btn {
