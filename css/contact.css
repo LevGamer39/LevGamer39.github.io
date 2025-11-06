@@ -6,6 +6,11 @@
 .contact-hero h1 { 
   margin: 0 0 12px; 
   font-size: 2.5rem;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.2;
 }
 
 .contact-hero .muted { 
@@ -13,6 +18,9 @@
   font-size: 1.1rem;
   max-width: 600px;
   margin: 0 auto;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  line-height: 1.5;
 }
 
 .contact-grid {
@@ -25,6 +33,9 @@
 .contact-card { 
   padding: 30px;
   background: linear-gradient(135deg, rgba(255,255,255,0.02), transparent);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--card-border);
 }
 
 .contact-card .card-header {
@@ -34,6 +45,15 @@
   margin-bottom: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--card-border);
+}
+
+.contact-card .card-header h3 {
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.005em;
 }
 
 .telegram-badge {
@@ -46,6 +66,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.01em;
 }
 
 .card-subtitle {
@@ -53,6 +75,8 @@
   margin-bottom: 24px;
   font-size: 14px;
   line-height: 1.5;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
 }
 
 /* Форма */
@@ -83,6 +107,8 @@
   font-weight: 500;
   font-size: 14px;
   color: var(--text);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.01em;
 }
 
 .label-text {
@@ -92,12 +118,15 @@
 .required {
   color: var(--danger);
   font-size: 12px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 600;
 }
 
 .optional {
   color: var(--muted);
   font-size: 11px;
   font-weight: normal;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .form-input,
@@ -109,10 +138,11 @@
   border: 2px solid var(--card-border);
   border-radius: 10px;
   color: var(--text);
-  font-family: inherit;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  font-weight: 400;
 }
 
 .form-input:focus,
@@ -143,6 +173,7 @@
   background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234DA3FF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 16px center / 16px;
   cursor: pointer;
   color: var(--muted);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .form-select:valid {
@@ -155,6 +186,7 @@
   padding: 12px;
   border: none;
   font-size: 14px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .form-select option:hover {
@@ -179,6 +211,7 @@
   line-height: 1.5;
   overflow: hidden;
   display: block;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .textarea-footer {
@@ -193,6 +226,7 @@
   font-size: 12px;
   font-weight: 500;
   transition: all 0.3s ease;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .char-counter.normal {
@@ -222,12 +256,16 @@
 .min-chars {
   font-size: 11px;
   color: var(--muted);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
 }
 
 .field-hint {
   font-size: 11px;
   color: var(--muted);
   margin-top: 4px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
 }
 
 /* Кнопки */
@@ -247,7 +285,7 @@
   padding: 14px 24px;
   border: none;
   border-radius: 10px;
-  font-family: inherit;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
@@ -257,6 +295,7 @@
   overflow: hidden;
   box-sizing: border-box;
   flex-shrink: 0;
+  letter-spacing: 0.01em;
 }
 
 .btn-primary {
@@ -274,6 +313,7 @@
   background: transparent;
   color: var(--muted);
   border: 2px solid var(--card-border);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .btn-secondary:hover:not(:disabled) {
@@ -343,6 +383,8 @@
   color: #3BA55D;
   font-size: 12px;
   font-weight: 500;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.01em;
 }
 
 /* Боковая панель контактов */
@@ -350,6 +392,10 @@
   padding: 25px;
   position: sticky;
   top: 20px;
+  background: var(--panel);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--card-border);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .contact-links h3 {
@@ -357,6 +403,9 @@
   margin-bottom: 20px;
   font-size: 1.4rem;
   color: var(--accent);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
 .links-list {
@@ -381,6 +430,7 @@
   text-decoration: none;
   transition: all 0.3s ease;
   min-height: 48px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .contact-link:hover {
@@ -393,6 +443,7 @@
   font-size: 18px;
   width: 20px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .link-content {
@@ -404,17 +455,22 @@
 .link-title {
   font-weight: 600;
   font-size: 14px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.01em;
 }
 
 .link-desc {
   font-size: 12px;
   color: var(--muted);
   margin-top: 2px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
 }
 
 .link-arrow {
   color: var(--muted);
   font-size: 14px;
+  flex-shrink: 0;
 }
 
 .link-badge {
@@ -424,6 +480,9 @@
   border-radius: 12px;
   font-size: 10px;
   font-weight: 600;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.01em;
+  flex-shrink: 0;
 }
 
 .telegram-demo {
@@ -440,6 +499,9 @@
   font-size: 1.1rem;
   margin-bottom: 16px;
   color: var(--accent);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
 .info-grid {
@@ -455,12 +517,14 @@
   padding: 12px;
   background: rgba(255, 255, 255, 0.02);
   border-radius: 8px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .info-icon {
   font-size: 16px;
   width: 20px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .info-content {
@@ -471,12 +535,16 @@
   font-size: 12px;
   color: var(--muted);
   margin-bottom: 2px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
 }
 
 .info-value {
   font-size: 13px;
   font-weight: 500;
   color: var(--text);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: 0.01em;
 }
 
 /* Поддержка */
@@ -488,6 +556,7 @@
   background: rgba(77, 163, 255, 0.05);
   border: 1px solid rgba(77, 163, 255, 0.2);
   border-radius: 10px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .support-icon {
@@ -498,6 +567,12 @@
 .support-text {
   font-size: 13px;
   line-height: 1.4;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+}
+
+.support-text strong {
+  font-weight: 600;
 }
 
 /* Сообщения об ошибках */
@@ -506,6 +581,8 @@
   font-size: 12px;
   margin-top: 4px;
   display: block;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
 }
 
 /* Статусные сообщения */
@@ -515,6 +592,9 @@
   margin-top: 16px;
   font-size: 14px;
   display: none;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.4;
 }
 
 .status-message.success {

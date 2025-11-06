@@ -1,23 +1,70 @@
-.title{font-size:2.5rem;margin:0 0 6px;font-weight:700}
-.subtitle{font-size:1.25rem;color:var(--muted);margin:0 0 8px}
-.lead{color:var(--muted);margin-bottom:16px; font-size: 1rem;}
+.title{
+  font-size:2.5rem;
+  margin:0 0 6px;
+  font-weight:700;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -0.02em;
+}
+.subtitle{
+  font-size:1.25rem;
+  color:var(--muted);
+  margin:0 0 8px;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+}
+.lead{
+  color:var(--muted);
+  margin-bottom:16px; 
+  font-size: 1rem;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+}
 
 .actions{display:flex;gap:14px}
-.btn{background:var(--panel);padding:12px 18px;border-radius:10px;color:var(--text);text-decoration:none;display:inline-block;box-shadow:0 6px 18px rgba(0,0,0,0.35)}
+.btn{
+  background:var(--panel);
+  padding:12px 18px;
+  border-radius:10px;
+  color:var(--text);
+  text-decoration:none;
+  display:inline-block;
+  box-shadow:0 6px 18px rgba(0,0,0,0.35);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
 .btn:hover{box-shadow:0 10px 26px rgba(77,163,255,0.06);transform:translateY(-2px)}
 .btn.ghost{background:#191f24;color:var(--muted)}
 
 .about-skills{display:grid;grid-template-columns:1fr 360px;gap:var(--gap);align-items:start}
-.about-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:22px;border-radius:var(--card-radius);border:1px solid var(--card-border)}
-.preview-card{background:var(--panel);padding:18px;border-radius:12px;border:1px solid var(--card-border)}
+.about-card{
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  padding:22px;
+  border-radius:var(--card-radius);
+  border:1px solid var(--card-border);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+.preview-card{
+  background:var(--panel);
+  padding:18px;
+  border-radius:12px;
+  border:1px solid var(--card-border);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
 .skills-cards{padding:8px 0}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:var(--panel);padding:18px;border-radius:12px;border:1px solid var(--card-border)}
+.card{
+  background:var(--panel);
+  padding:18px;
+  border-radius:12px;
+  border:1px solid var(--card-border);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
 
 @media (max-width:1000px){
   .about-skills{grid-template-columns:1fr}
   .grid-3{grid-template-columns:repeat(1,1fr)}
-  .title{font-size:40px}
+  .title{font-size:2.2rem}
 }
 
 /* === Responsive tweaks === */
@@ -137,8 +184,4 @@
   .about-card, .preview-card {
     padding: 14px;
   }
-}
-
-@media (max-width:1000px){
-  .title{font-size:2.2rem}
 }

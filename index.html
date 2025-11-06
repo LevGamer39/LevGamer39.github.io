@@ -15,20 +15,26 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">LevGamer39</div>
-    <button class="mobile-menu-btn" id="mobile-menu-btn">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <nav class="nav" id="main-nav">
-      <a href="#home" class="nav-link active" data-page="home">Главная</a>
-      <a href="#projects" class="nav-link" data-page="projects">Проекты</a>
-      <a href="#skills" class="nav-link" data-page="skills">Навыки</a>
-      <a href="#contact" class="nav-link" data-page="contact">Контакты</a>
-    </nav>
-    <div class="user">LevGamer39</div>
-  </header>
+  <div class="brand">
+    <img src="img/logo-desktop.png" alt="LevGamer39" class="brand-logo desktop-logo">
+    <img src="img/logo-mobile.png" alt="LG" class="brand-logo mobile-logo">
+  </div>
+  <button class="mobile-menu-btn" id="mobile-menu-btn">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav class="nav" id="main-nav">
+    <a href="#home" class="nav-link active" data-page="home">Главная</a>
+    <a href="#projects" class="nav-link" data-page="projects">Проекты</a>
+    <a href="#skills" class="nav-link" data-page="skills">Навыки</a>
+    <a href="#contact" class="nav-link" data-page="contact">Контакты</a>
+  </nav>
+  <div class="user">
+    <!-- Аватар - скрывается на мобильных -->
+    <img src="img/avatar.jpg" alt="LevGamer39" class="user-avatar">
+  </div>
+</header>
 
  <main class="container">
   <!-- Главная страница -->
@@ -92,47 +98,79 @@
 
   <!-- Проекты -->
   <section id="projects-page" class="page">
-    <section class="projects-hero">
-      <h1>Проекты</h1>
-      <p class="muted">Подборка моих личных проектов и инструментов.</p>
-    </section>
-
-    <section class="projects-grid">
-      <article class="project-card">
-		<h3>Unified Media Hub</h3>
-		<p>Медиасервер на базе Jellyfin и Sonarr с веб-интерфейсом Homer, работающий через Nginx и Docker. Объединяет все локальные сервисы Raspberry Pi в единую систему мониторинга и управления.</p>
-		<div class="meta">Nginx · Docker · Linux · Media</div>
-		<a class="link" href="#">Подробнее</a>
-	  </article>
-      <article class="project-card">
-        <h3>Automation Scripts</h3>
-        <p>Скрипты на Bash и Python для автоматизации рутинных задач в Linux: обновление пакетов, резервное копирование, управление Docker-контейнерами и сервисами, сбор логов и мониторинг.</p>
-        <div class="meta">Python · Bash · System · Docker</div>
-        <a class="link" href="#">Подробнее</a>
-      </article>
-
-      <article class="project-card">
-        <h3>Unity Game</h3>
-        <p>Игра на C# (Unity): автоматическая оборона с растением, атакующим врагов, движущихся к дому. Каждый враг имеет уникальные характеристики, используется система волн, улучшения и счётчик оставшихся противников.</p>
-        <div class="meta">C# · Unity · Game Dev</div>
-        <a class="link" href="#">Подробнее</a>
-      </article>
-
-      <article class="project-card">
-        <h3>ESP & Arduino Tools</h3>
-        <p>Набор скриптов и утилит для прошивки, логирования и тестирования микроконтроллеров (ESP, Arduino). Простое подключение, анализ данных с устройств и интеграция с Linux через Docker.</p>
-        <div class="meta">Python · Embedded · Hardware · Docker</div>
-        <a class="link" href="#">Подробнее</a>
-      </article>
-
-      <article class="project-card">
-        <h3>Automation Bots</h3>
-        <p>Телеграм-боты и системные помощники на Python: автоматизация сервисов, мониторинг Raspberry Pi и выполнение команд с удалённого доступа через API и Docker.</p>
-        <div class="meta">Python · Bots · API · Docker</div>
-        <a class="link" href="#">Подробнее</a>
-      </article>
-    </section>
+  <section class="projects-hero">
+    <h1>Проекты</h1>
+    <p class="muted">Подборка моих личных проектов и инструментов.</p>
   </section>
+
+  <section class="projects-grid">
+    <article class="project-card">
+      <div class="project-image">
+        <!-- Заготовка для изображения проекта -->
+        <img src="img/projects/plant-defense.jpg" alt="Plant Defense Game" loading="lazy">
+      </div>
+      <h3>Plant Defense</h3>
+      <p>Игра на C# (Unity) с системой автоматической обороны - растение атакует врагов, движущихся к дому. Уникальные характеристики врагов, система волн, улучшения и счётчик противников.</p>
+      <div class="meta">C# · Unity · Game Dev · 2D Game</div>
+      <a class="link" href="https://github.com/LevGamer39/Plant-Defense" target="_blank" rel="noopener">GitHub ↗</a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-image">
+        <!-- Заготовка для изображения проекта -->
+        <img src="img/projects/asf-termux.jpg" alt="ASF on Termux" loading="lazy">
+      </div>
+      <h3>ASF on Termux</h3>
+      <p>Автоматизация Steam с помощью ASF (ArchiSteamFarm) на Android через Termux. Управление Steam-аккаунтами, фарминг карточек и автоматические операции на мобильном устройстве.</p>
+      <div class="meta">Python · Termux · Steam · Automation</div>
+      <a class="link" href="https://github.com/LevGamer39/ASFonTermux" target="_blank" rel="noopener">GitHub ↗</a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-image">
+        <!-- Заготовка для изображения проекта -->
+        <img src="img/projects/slanglit-bot.jpg" alt="Slanglit Bot" loading="lazy">
+      </div>
+      <h3>Slanglit Bot</h3>
+      <p>Telegram-бот для работы с сленгом и разговорной речью. Понимает современные выражения, мемы и интернет-культуру. Интегрирован с различными API для расширенного функционала.</p>
+      <div class="meta">Python · Telegram API · AI · NLP</div>
+      <a class="link" href="https://github.com/LevGamer39/Slanglit" target="_blank" rel="noopener">GitHub ↗</a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-image">
+        <!-- Заготовка для изображения проекта -->
+        <img src="img/projects/pi-homelab.jpg" alt="Raspberry Pi Homelab" loading="lazy">
+      </div>
+      <h3>Raspberry Pi 5 Homelab</h3>
+      <p>Домашняя лаборатория на Raspberry Pi 5 с Docker-контейнерами: медиасервер Jellyfin, автоматизация через Sonarr/Radarr, веб-интерфейс Homer и системный мониторинг.</p>
+      <div class="meta">Docker · Linux · Raspberry Pi · Home Server</div>
+      <a class="link" href="https://github.com/LevGamer39/Raspberry-Pi-5-Homelab" target="_blank" rel="noopener">GitHub ↗</a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-image">
+        <!-- Заготовка для изображения проекта -->
+        <img src="img/projects/portfolio-site.jpg" alt="Portfolio Website" loading="lazy">
+      </div>
+      <h3>Portfolio Website</h3>
+      <p>Персональный сайт-портфолио с SPA-архитектурой, адаптивным дизайном и интерактивным терминалом. Реализована форма обратной связи с Telegram-интеграцией.</p>
+      <div class="meta">HTML · CSS · JavaScript · SPA · Responsive</div>
+      <a class="link" href="https://github.com/LevGamer39/LevGamer39.github.io" target="_blank" rel="noopener">GitHub ↗</a>
+    </article>
+
+    <article class="project-card">
+      <div class="project-image">
+        <!-- Заготовка для изображения проекта -->
+        <img src="img/projects/embedded-tools.jpg" alt="Embedded Tools" loading="lazy">
+      </div>
+      <h3>Embedded Tools</h3>
+      <p>Набор утилит для работы с микроконтроллерами ESP и Arduino. Скрипты для прошивки, логирования данных, тестирования и интеграции с Linux-системами через Docker.</p>
+      <div class="meta">Python · Embedded · ESP32 · Arduino · Docker</div>
+      <a class="link" href="#" target="_blank" rel="noopener">В разработке</a>
+    </article>
+  </section>
+</section>
 
   <!-- Навыки -->
   <section id="skills-page" class="page">
@@ -150,7 +188,7 @@
       <div class="skill">
         <h3>Web</h3>
         <ul>
-          <li>HTML / CSS / JavaScript — сайты и панели</li>
+          <li>HTML / CSS / JavaScript — сайты</li>
           <li>Интеграция сервисов и веб-интерфейсов</li>
           <li>Настройка веб-окружения и Docker-контейнеров</li>
         </ul>
@@ -171,7 +209,7 @@
         <ul>
           <li>Raspberry Pi, ESP, Arduino</li>
           <li>UART, I²C, GPIO</li>
-          <li>Прошивки, мониторинг, интеграция с Linux и Docker</li>
+          <li>Прошивки, мониторинг</li>
         </ul>
       </div>
     </section>

@@ -1,6 +1,8 @@
 /* SPA Styles */
 .page {
   display: none;
+  width: 100%;
+  animation: fadeOut 0.3s ease-in-out;
 }
 
 .page.active {
@@ -9,14 +11,54 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { 
+    opacity: 0; 
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+  to { 
+    opacity: 0; 
+    transform: translateY(-10px);
+  }
 }
 
 /* Улучшения для навигации SPA */
 .nav-link {
   cursor: pointer;
   transition: all 0.2s ease;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link.active::after {
+  width: 80%;
+}
+
+.nav-link:hover::after {
+  width: 60%;
 }
 
 /* Фикс для кнопок на главной странице */
@@ -36,9 +78,28 @@
   box-shadow: 0 6px 18px rgba(0,0,0,0.35);
   border: none;
   cursor: pointer;
-  font-family: inherit;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 0.95rem;
   transition: all 0.2s ease;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
 }
 
 .btn:hover {
@@ -51,13 +112,27 @@
   color: var(--muted);
 }
 
+.btn.ghost:hover {
+  background: #1a2026;
+  color: var(--text);
+}
+
 /* Гарантируем правильное отображение контейнера */
 .container {
   position: relative;
+  min-height: 60vh;
 }
 
 .page {
   width: 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.page.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Фикс для отступов на главной */
@@ -71,4 +146,119 @@
 
 .skills-cards {
   margin-bottom: 40px;
+}
+
+/* Плавные переходы между страницами */
+.page-transition {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.page-transition.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Loading states */
+.page.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.page.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid var(--accent);
+  border-top: 3px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1000;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .page {
+    animation-duration: 0.2s;
+  }
+  
+  @keyframes fadeIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(5px);
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeOut {
+    from { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+    to { 
+      opacity: 0; 
+      transform: translateY(-5px);
+    }
+  }
+  
+  .actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    animation-duration: 0.15s;
+  }
+  
+  .hero {
+    margin-bottom: 30px;
+  }
+  
+  .about-skills {
+    margin-bottom: 30px;
+  }
+  
+  .skills-cards {
+    margin-bottom: 30px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .page,
+  .page.active,
+  .btn,
+  .nav-link {
+    animation: none;
+    transition: none;
+  }
+  
+  .btn::before {
+    display: none;
+  }
+  
+  .nav-link::after {
+    display: none;
+  }
 }

@@ -10,7 +10,48 @@
   --card-radius:12px;
   --max-width:1200px;
   --gap:24px;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Подключение Styrene A Web локально */
+@font-face {
+  font-family: "Styrene A Web";
+  src: url('../fonts/styrene/StyreneAWeb-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Styrene A Web";
+  src: url('../fonts/styrene/StyreneAWeb-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Styrene A Web";
+  src: url('../fonts/styrene/StyreneAWeb-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Styrene A Web";
+  src: url('../fonts/styrene/StyreneAWeb-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Styrene A Web";
+  src: url('../fonts/styrene/StyreneAWeb-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Reset */
@@ -20,48 +61,138 @@ html,body{
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  -webkit-font-smoothing:antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
 }
-a{color:inherit}
 
-/* Topbar */
+/* Topbar с фиксированной высотой */
 .topbar{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:16px 32px;
+  padding:8px 32px;
   background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
   border-bottom:1px solid var(--card-border);
+  height: 70px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1000;
 }
-.brand{font-weight:700;font-size:18px;color:var(--accent)}
-.nav{display:flex;gap:18px}
-.nav-link{color:var(--muted);text-decoration:none;padding:6px 8px;border-radius:6px}
-.nav-link.active{color:var(--text);background:rgba(77,163,255,0.06)}
-.user{color:var(--muted)}
+
+.brand{
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.brand-logo {
+  height: 25px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+.mobile-logo {
+  display: none;
+}
+
+.desktop-logo {
+  display: block;
+}
+
+.user{
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.user-avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+}
+
+/* Навигация */
+.nav{
+  display:flex;
+  gap:18px;
+  align-items: center;
+  height: 100%;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.nav-link{
+  color:var(--muted);
+  text-decoration:none;
+  padding:8px 12px;
+  border-radius:6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  position: relative;
+}
+
+.nav-link.active{
+  color:var(--text);
+  background:rgba(77,163,255,0.06);
+  font-weight: 600;
+}
+
+/* Убираем синюю линию под активной ссылкой */
+.nav-link::after {
+  display: none;
+}
 
 /* Mobile Navigation */
 .mobile-menu-btn {
   display: none;
   flex-direction: column;
   justify-content: space-between;
-  width: 24px;
-  height: 18px;
+  width: 32px;
+  height: 24px;
   background: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
+  z-index: 1002;
+  position: relative;
 }
 
 .mobile-menu-btn span {
   display: block;
-  height: 2px;
+  height: 3px;
   width: 100%;
   background-color: var(--text);
-  border-radius: 1px;
+  border-radius: 2px;
   transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* Анимация бургер-меню */
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(8px, 8px);
+  background-color: var(--accent);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+  background-color: var(--accent);
 }
 
 /* Layout */
@@ -84,6 +215,8 @@ a{color:inherit}
   border-top: 1px solid var(--card-border);
   font-size: 0.9rem;
   color: var(--muted);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
 }
 
 /* Cards */
@@ -91,126 +224,238 @@ a{color:inherit}
   background:var(--panel);
   padding:18px;
   border-radius:var(--card-radius);
-  border:1px solid var(--card-border)
+  border:1px solid var(--card-border);
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-html {
-  font-size: 16px;
-}
-
-body {
-  font-family: "Inter", system-ui, sans-serif;
-  color: var(--text);
-  line-height: 1.6;
-  background-color: var(--bg);
-  margin: 0;
-  padding: 0;
-}
-
+/* Типографика */
 h1, h2, h3, h4 {
-  font-family: "Inter", sans-serif;
-  font-weight: 600;
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
   color: var(--text);
   margin: 0 0 0.8rem;
+  line-height: 1.2;
 }
 
-h1 { font-size: 2.2rem; }
-h2 { font-size: 1.8rem; }
-h3 { font-size: 1.4rem; }
-h4 { font-size: 1.1rem; }
+h1 { 
+  font-size: 2.5rem;
+  letter-spacing: -0.02em;
+}
 
-p, li, input, button {
+h2 { 
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+}
+
+h3 { 
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+h4 { 
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p, li, div, span {
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
   line-height: 1.6;
 }
 
-.btn {
-  font-size: 0.95rem;
+/* Кнопки и интерактивные элементы */
+.btn, .link, button {
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
 
-.container {
-  max-width: var(--max-width);
-  margin: 2rem auto;
-  padding: 0 1.5rem;
+/* Мета-информация */
+.meta, .muted {
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 300;
+  opacity: 0.8;
 }
 
-.footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-  border-top: 1px solid var(--card-border);
-  font-size: 0.9rem;
-  color: var(--muted);
+/* Терминал оставляем с моноширинным шрифтом */
+.terminal-header,
+.term-output,
+.term-input-row,
+.prompt,
+#terminal-input {
+  font-family: "JetBrains Mono", "SF Mono", Monaco, Inconsolata, "Roboto Mono", monospace;
+  font-weight: 400;
 }
 
-/* Mobile styles */
+/* Формы */
+.form-input, .form-select, .form-textarea, .form-label {
+  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 400;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+/* Адаптив для планшетов */
+@media (max-width: 900px) {
+  .topbar {
+    padding: 8px 24px;
+    height: 65px;
+  }
+  
+  .user-avatar {
+    height: 50px;
+    width: 50px;
+  }
+  
+  .brand-logo {
+    height: 22px;
+  }
+  
+  .nav {
+    gap: 14px;
+  }
+  
+  .nav-link {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}
+
+/* Адаптив для мобильных */
 @media (max-width: 768px) {
   .topbar {
-    padding: 12px 16px;
+    padding: 8px 16px;
+    height: 60px;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .mobile-menu-btn {
     display: flex;
+    order: 2;
+    margin-left: auto;
+  }
+
+  .brand {
+    order: 1;
+    flex: 1;
+  }
+
+  .user {
+    order: 3;
+    display: none;
   }
 
   .nav {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 60px;
     left: 0;
     right: 0;
     background: var(--panel);
     border: 1px solid var(--card-border);
     border-top: none;
     flex-direction: column;
-    padding: 16px;
+    padding: 20px 16px;
     gap: 12px;
     display: none;
-    z-index: 1000;
+    z-index: 999;
+    height: auto;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-10px);
+    opacity: 0;
+    transition: all 0.3s ease;
   }
 
   .nav.active {
     display: flex;
+    transform: translateY(0);
+    opacity: 1;
   }
 
   .nav-link {
-    padding: 12px;
-    border-radius: 8px;
+    padding: 16px 20px;
+    border-radius: 10px;
     text-align: center;
-    min-height: 48px;
+    min-height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    font-weight: 500;
   }
 
-  .user {
+  .nav-link.active {
+    background: rgba(77, 163, 255, 0.1);
+    border-color: rgba(77, 163, 255, 0.2);
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .nav-link:hover {
+    background: rgba(77, 163, 255, 0.05);
+    border-color: rgba(77, 163, 255, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .desktop-logo {
+    display: none;
+  }
+  
+  .mobile-logo {
+    display: block;
+    height: 40px;
+  }
+  
+  .user-avatar {
     display: none;
   }
   
   .container {
-    padding: 0 1rem;
+    padding: 0 16px;
     margin: 1.5rem auto;
   }
   
-  h1 { font-size: 1.8rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.3rem; }
+  h1 { 
+    font-size: 2rem;
+    font-weight: 700;
+  }
   
-  .nav {
-    gap: 10px;
+  h2 { 
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+  
+  h3 { 
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
+  
+  .brand {
+    font-size: 1.1rem;
+    font-weight: 700;
   }
   
   .footer {
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     text-align: center;
+    padding: 16px;
   }
   
   /* Улучшения для touch-устройств */
   .nav-link, .btn, .link {
-    min-height: 48px;
+    min-height: 52px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -220,7 +465,6 @@ p, li, input, button {
     font-size: 16px;
   }
   
-  /* Улучшаем читаемость */
   body {
     font-size: 15px;
     line-height: 1.5;
@@ -229,45 +473,110 @@ p, li, input, button {
 
 /* Для очень маленьких экранов */
 @media (max-width: 480px) {
+  .topbar {
+    padding: 6px 12px;
+    height: 56px;
+  }
+  
+  .mobile-logo {
+    height: 35px;
+  }
+  
+  .mobile-menu-btn {
+    width: 28px;
+    height: 20px;
+  }
+  
+  .mobile-menu-btn span {
+    height: 2.5px;
+  }
+  
+  .mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+  }
+  
+  .mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+  
+  .nav {
+    top: 56px;
+    padding: 16px 12px;
+    gap: 10px;
+  }
+  
+  .nav-link {
+    padding: 14px 16px;
+    min-height: 48px;
+    font-size: 15px;
+  }
+  
   .container {
     padding: 0 12px;
+    margin: 1rem auto;
   }
   
-  .topbar {
-    padding: 10px 12px;
+  h1 { 
+    font-size: 1.8rem;
   }
   
-  .brand {
-    font-size: 16px;
+  h2 { 
+    font-size: 1.5rem;
   }
   
-  h1 { font-size: 1.7rem; }
-  h2 { font-size: 1.4rem; }
-  h3 { font-size: 1.2rem; }
+  h3 { 
+    font-size: 1.2rem;
+  }
   
   .footer {
-    padding: 16px;
+    padding: 14px;
     font-size: 14px;
   }
 }
 
 /* Для сверхмалых экранов */
 @media (max-width: 360px) {
+  .topbar {
+    padding: 4px 10px;
+    height: 52px;
+  }
+  
+  .mobile-logo {
+    height: 30px;
+  }
+  
+  .mobile-menu-btn {
+    width: 26px;
+    height: 18px;
+  }
+  
+  .nav {
+    top: 52px;
+    padding: 14px 10px;
+    gap: 8px;
+  }
+  
+  .nav-link {
+    padding: 12px 14px;
+    min-height: 44px;
+    font-size: 14px;
+  }
+  
   .container {
     padding: 0 10px;
   }
   
-  .topbar {
-    padding: 8px 10px;
+  h1 { 
+    font-size: 1.6rem;
   }
   
-  .brand {
-    font-size: 15px;
+  h2 { 
+    font-size: 1.3rem;
   }
   
-  h1 { font-size: 1.6rem; }
-  h2 { font-size: 1.3rem; }
-  h3 { font-size: 1.1rem; }
+  h3 { 
+    font-size: 1.1rem;
+  }
   
   .footer {
     padding: 12px;
@@ -275,18 +584,23 @@ p, li, input, button {
   }
 }
 
-/* Улучшения для touch-устройств */
-@media (max-width: 768px) {
-  .btn, .nav-link, .contact-link, .link {
-    min-height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Улучшаем форму на мобильных */
-  .form-input, .form-select {
-    min-height: 48px;
-    font-size: 16px;
-  }
+/* Запрещаем скролл тела когда меню открыто */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* Плавная анимация для всего сайта */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Улучшаем доступность для навигации */
+.nav-link:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.mobile-menu-btn:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
