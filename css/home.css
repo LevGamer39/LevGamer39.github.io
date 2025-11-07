@@ -1,6 +1,6 @@
 .title{
   font-size:2.5rem;
-  margin:0 0 6px;
+  margin:0 0 12px;
   font-weight:700;
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   letter-spacing: -0.02em;
@@ -8,19 +8,19 @@
 .subtitle{
   font-size:1.25rem;
   color:var(--muted);
-  margin:0 0 8px;
+  margin:0 0 12px;
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
 }
 .lead{
   color:var(--muted);
-  margin-bottom:16px; 
+  margin-bottom:20px; 
   font-size: 1rem;
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
 }
 
-.actions{display:flex;gap:14px}
+.actions{display:flex;gap:14px; margin-bottom: 20px;}
 .btn{
   background:var(--panel);
   padding:12px 18px;
@@ -36,13 +36,14 @@
 .btn:hover{box-shadow:0 10px 26px rgba(77,163,255,0.06);transform:translateY(-2px)}
 .btn.ghost{background:#191f24;color:var(--muted)}
 
-.about-skills{display:grid;grid-template-columns:1fr 360px;gap:var(--gap);align-items:start}
+.about-skills{display:grid;grid-template-columns:1fr 360px;gap:var(--gap);align-items:start; margin-bottom: 30px;}
 .about-card{
   background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
   padding:22px;
   border-radius:var(--card-radius);
   border:1px solid var(--card-border);
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-bottom: 0;
 }
 .preview-card{
   background:var(--panel);
@@ -50,8 +51,9 @@
   border-radius:12px;
   border:1px solid var(--card-border);
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-bottom: 0;
 }
-.skills-cards{padding:8px 0}
+.skills-cards{padding:8px 0; margin-bottom: 30px;}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card{
   background:var(--panel);
@@ -59,18 +61,43 @@
   border-radius:12px;
   border:1px solid var(--card-border);
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  margin-bottom: 0;
+}
+
+/* Улучшенные отступы для мобильных */
+@media (max-width: 768px) {
+  .about-card, .preview-card, .grid-3 .card {
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+  
+  .hero {
+    padding: 20px 0;
+  }
+  
+  .title {
+    margin-bottom: 12px;
+  }
+  
+  .subtitle {
+    margin-bottom: 12px;
+  }
+  
+  .lead {
+    margin-bottom: 20px;
+  }
 }
 
 @media (max-width:1000px){
-  .about-skills{grid-template-columns:1fr}
-  .grid-3{grid-template-columns:repeat(1,1fr)}
+  .about-skills{grid-template-columns:1fr; gap: 20px;}
+  .grid-3{grid-template-columns:repeat(1,1fr); gap: 16px;}
   .title{font-size:2.2rem}
 }
 
 /* === Responsive tweaks === */
 @media (max-width: 768px) {
   .container {
-    padding: 10px;
+    padding: 0 16px;
     gap: 24px;
     margin: 20px auto;
   }
