@@ -23,6 +23,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Прокрутка к верху страницы
     window.scrollTo(0, 0);
+    
+    // Переинициализируем терминал если он на активной странице
+    if (pageId === 'home' && typeof window.terminalInitialized === 'undefined') {
+      setTimeout(() => {
+        const terminalInput = document.getElementById('terminal-input');
+        if (terminalInput) {
+          terminalInput.focus();
+        }
+      }, 300);
+    }
   }
   
   // Обработчик для ВСЕХ элементов с data-page

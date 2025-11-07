@@ -588,3 +588,72 @@ html {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
+body.mood-happy {
+  --accent: #FF6B6B;
+  --card-border: #FF9E7D;
+}
+
+body.mood-happy .terminal-header,
+body.mood-happy .prompt {
+  color: #FF6B6B;
+}
+
+body.mood-happy .btn:hover {
+  box-shadow: 0 10px 26px rgba(255, 107, 107, 0.3);
+}
+
+body.mood-chill {
+  --accent: #4ECDC4;
+  --card-border: #88D3CE;
+}
+
+body.mood-chill .terminal-header,
+body.mood-chill .prompt {
+  color: #4ECDC4;
+}
+
+body.mood-chill .btn:hover {
+  box-shadow: 0 10px 26px rgba(78, 205, 196, 0.3);
+}
+
+body.mood-focus {
+  --accent: #45B7D1;
+  --card-border: #7BCFE0;
+}
+
+body.mood-focus .terminal-header,
+body.mood-focus .prompt {
+  color: #45B7D1;
+}
+
+body.mood-focus .btn:hover {
+  box-shadow: 0 10px 26px rgba(69, 183, 209, 0.3);
+}
+
+/* Анимации для эффектов */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.floating {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Стили для игр в терминале */
+.terminal-game {
+  border: 1px solid var(--accent);
+  padding: 10px;
+  margin: 10px 0;
+  background: rgba(0, 0, 0, 0.3);
+  font-family: "JetBrains Mono", monospace;
+  white-space: pre;
+}
+
+/* Адаптивность для эффектов */
+@media (max-width: 768px) {
+  .terminal-game {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
