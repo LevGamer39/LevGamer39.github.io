@@ -130,17 +130,3 @@
     width: 100%;
   }
 }
-
-/* Универсальная адаптация для вертикальных изображений */
-.project-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-/* Отдельно для вертикальных фото (у которых высота заметно больше ширины) */
-.project-image img.portrait {
-  object-fit: contain;
-  background-color: rgba(255, 255, 255, 0.03); /* или var(--card-border) */
-}
