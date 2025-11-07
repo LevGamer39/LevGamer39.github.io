@@ -1,3 +1,5 @@
+/* projects.css */
+/* #pragma region Projects Hero */
 .projects-hero h1{ 
   margin:6px 0;
   font-size: 2.5rem;
@@ -9,6 +11,9 @@
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
 }
+/* #pragma endregion */
+
+/* #pragma region Projects Grid */
 .projects-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -60,7 +65,9 @@
   background: rgba(77,163,255,0.1);
   transform: translateY(-1px);
 }
+/* #pragma endregion */
 
+/* #pragma region Project Images */
 .project-image {
   width: 100%;
   height: 200px;
@@ -82,7 +89,9 @@
 .project-card:hover .project-image img {
   transform: scale(1.05);
 }
+/* #pragma endregion */
 
+/* #pragma region Projects Responsive */
 @media (max-width:1000px){
   .projects-grid{grid-template-columns:repeat(1,1fr)}
 }
@@ -129,3 +138,4 @@
     width: 100%;
   }
 }
+/* #pragma endregion */

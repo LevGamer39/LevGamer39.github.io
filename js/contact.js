@@ -1,3 +1,5 @@
+/* contact.js */
+/* #pragma region Contact Form Logic */
 document.addEventListener('DOMContentLoaded', function() {
   const API_BASE_URL = 'https://levgamer39.pythonanywhere.com';
   const form = document.getElementById('contact-form');
@@ -157,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
   }
 
-  // Проверка соцсети - ссылка или юзернейм
   function validateSocial() {
     const value = this.value.trim();
     
@@ -420,3 +421,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+/* #pragma endregion */

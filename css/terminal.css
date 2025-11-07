@@ -1,7 +1,5 @@
-/* css/terminal.css */
-/* ВСЕ стили терминала */
-
-/* === Терминал === */
+/* terminal.css */
+/* #pragma region Terminal Base Styles */
 .terminal {
   border-radius: 10px;
   border: 1px solid var(--card-border);
@@ -67,13 +65,13 @@
   opacity: 0.6;
 }
 
-/* Стиль для строк с промптом */
 .prompt-line {
   color: var(--accent);
   margin-bottom: 4px;
 }
+/* #pragma endregion */
 
-/* аккуратный скролл */
+/* #pragma region Terminal Scrollbar */
 .term-output::-webkit-scrollbar {
   width: 6px;
 }
@@ -86,13 +84,15 @@
 .term-output::-webkit-scrollbar-thumb:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
+/* #pragma endregion */
 
-/* Индикатор фокуса */
+/* #pragma region Terminal Focus States */
 .terminal:focus-within {
   box-shadow: 0 0 0 2px rgba(77, 163, 255, 0.1);
 }
+/* #pragma endregion */
 
-/* mobile tweak */
+/* #pragma region Terminal Mobile Styles */
 @media (max-width: 768px) {
   .terminal {
     margin: 24px auto 0;
@@ -127,3 +127,4 @@
     font-size: 12px;
   }
 }
+/* #pragma endregion */

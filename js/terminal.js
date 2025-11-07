@@ -1,19 +1,16 @@
-// js/terminal.js — привязка к уже существующему DOM (не создаёт элементы)
+/* terminal.js */
+/* #pragma region Terminal Core */
 (function(){
-  // Получаем элементы, если их нет — выходим без создания ничего
   const out = document.getElementById('terminal-output');
   const input = document.getElementById('terminal-input');
 
   if (!out || !input) {
-    // консоль не на странице — ничего не делаем
     return;
   }
 
-  // История команд
   let commandHistory = JSON.parse(localStorage.getItem('terminalHistory') || '[]');
   let historyIndex = commandHistory.length;
 
-  // Текущая директория (виртуальная файловая система)
   let currentDir = '/home/lev';
   const fileSystem = {
     '/': {
@@ -47,17 +44,14 @@
     }
   };
 
-  // Доступные команды для автодополнения
   const availableCommands = [
     'ls', 'dir', 'cd', 'pwd', 'cat', 'whoami', 'date', 'echo', 'clear',
     'help', 'projects', 'skills', 'info', 'system', 'check', 'goto',
     'game', 'matrix', 'sudo', 'hack', 'secret'
   ];
 
-  // Состояние активной игры
   let activeGame = null;
 
-  // Функция добавления строки в вывод
   function appendLine(text, cls) {
     const el = document.createElement('div');
     el.textContent = text;
@@ -66,12 +60,10 @@
     out.scrollTop = out.scrollHeight;
   }
 
-  // Функция сохранения истории
   function saveHistory() {
     localStorage.setItem('terminalHistory', JSON.stringify(commandHistory));
   }
 
-  // Функция для работы с виртуальной файловой системой
   function resolvePath(path) {
     if (path.startsWith('/')) {
       return path;
@@ -91,19 +83,15 @@
     return result;
   }
 
-  // Функция проверки доступа к директории
   function canAccessDirectory(path) {
-    // Запрещаем доступ к корневой и системным директориям
     const restrictedPaths = ['/', '/home'];
     return !restrictedPaths.includes(path);
   }
 
-  // Функция автодополнения
   function autocomplete(currentInput) {
     const parts = currentInput.split(' ');
     const currentPart = parts[parts.length - 1];
     
-    // Если это первое слово - дополняем команды
     if (parts.length === 1) {
       const matches = availableCommands.filter(cmd => 
         cmd.startsWith(currentPart.toLowerCase())
@@ -119,7 +107,6 @@
       }
     }
     
-    // Если это не первое слово - дополняем файлы/директории
     if (parts.length > 1 && (parts[0] === 'cd' || parts[0] === 'ls' || parts[0] === 'cat')) {
       const pathArg = parts.slice(1).join(' ');
       const lastSlashIndex = pathArg.lastIndexOf('/');
@@ -144,7 +131,7 @@
           appendLine('');
           appendLine('Доступные варианты:');
           matches.forEach(match => {
-            const type = dir[match].startsWith('DIR') ? '/' : '';
+            const type = dir[matches[0]].startsWith('DIR') ? '/' : '';
             appendLine('  ' + match + type);
           });
           return currentInput;
@@ -154,10 +141,10 @@
     
     return currentInput;
   }
+/* #pragma endregion */
 
-  // Набор команд с реальными данными с сайта + Linux команды + новые команды
+/* #pragma region Terminal Commands */
   const commands = {
-    // Linux команды
     ls(arg) {
       const path = arg ? resolvePath(arg) : currentDir;
       const dir = fileSystem[path];
@@ -175,7 +162,6 @@
       appendLine(`Содержимое ${path}:`);
       appendLine('');
       
-      // Сначала директории, потом файлы
       const entries = Object.entries(dir);
       const directories = entries.filter(([name, type]) => type.startsWith('DIR'));
       const files = entries.filter(([name, type]) => !type.startsWith('DIR'));
@@ -193,7 +179,7 @@
     },
 
     dir(arg) {
-      this.ls(arg); // Псевдоним для ls
+      this.ls(arg);
     },
 
     pwd() {
@@ -219,7 +205,6 @@
         return;
       }
       
-      // Проверяем, что это директория
       const parent = newPath.split('/').slice(0, -1).join('/') || '/';
       const dirName = newPath.split('/').pop();
       
@@ -287,7 +272,6 @@
       activeGame = null;
     },
 
-    // === ИГРОВЫЕ КОМАНДЫ ===
     game(arg) {
       if (activeGame) {
         appendLine('Игра уже активна. Завершите текущую игру.');
@@ -318,12 +302,10 @@
       }
     },
 
-    // === СЕКРЕТНЫЕ КОМАНДЫ ===
     matrix() {
       appendLine('Запуск эффекта Матрицы...');
       appendLine('Инициализация цифрового дождя...');
       
-      // Создаем эффект матрицы
       const matrixOverlay = document.createElement('div');
       matrixOverlay.style.cssText = `
         position: fixed;
@@ -336,63 +318,79 @@
         font-family: "JetBrains Mono", monospace;
         color: #0f0;
         overflow: hidden;
-        pointer-events: none;
+        cursor: pointer;
       `;
       
       document.body.appendChild(matrixOverlay);
       
-      // Создаем колонки с падающими символами
-      const columns = 30;
+      const columns = 40;
+      const chars = '01abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()';
+      
       for (let i = 0; i < columns; i++) {
         const column = document.createElement('div');
         column.style.cssText = `
           position: absolute;
           top: -100px;
           left: ${(i / columns) * 100}%;
-          font-size: 16px;
+          font-size: 14px;
           animation: matrix-fall ${Math.random() * 3 + 2}s linear infinite;
           animation-delay: ${Math.random() * 2}s;
           white-space: pre;
+          line-height: 1.2;
+          pointer-events: none;
         `;
         
         let text = '';
-        const rows = 20;
+        const rows = 25;
         for (let j = 0; j < rows; j++) {
-          text += String.fromCharCode(0x30A0 + Math.random() * 96) + '\n';
+          const randomChar = chars[Math.floor(Math.random() * chars.length)];
+          text += randomChar + '\n';
         }
         column.textContent = text;
         
         matrixOverlay.appendChild(column);
       }
       
-      // Добавляем стили для анимации
       const style = document.createElement('style');
       style.textContent = `
         @keyframes matrix-fall {
-          from { transform: translateY(-100px); }
-          to { transform: translateY(100vh); }
+          from { 
+            transform: translateY(-100px); 
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          90% {
+            opacity: 1;
+          }
+          to { 
+            transform: translateY(100vh); 
+            opacity: 0;
+          }
         }
       `;
       document.head.appendChild(style);
       
       appendLine('Эффект Матрицы активирован!');
-      appendLine('Для выхода нажмите Escape.');
+      appendLine('Для выхода нажмите любую клавишу или кликните на экран.');
       
-      // Обработчик выхода
-      const keyHandler = function(e) {
-        if (e.key === 'Escape') {
-          if (matrixOverlay.parentNode) {
-            document.body.removeChild(matrixOverlay);
-          }
-          if (style.parentNode) {
-            document.head.removeChild(style);
-          }
-          document.removeEventListener('keydown', keyHandler);
-          appendLine('Эффект Матрицы деактивирован.');
+      function exitMatrix() {
+        if (matrixOverlay.parentNode) {
+          document.body.removeChild(matrixOverlay);
         }
-      };
+        if (style.parentNode) {
+          document.head.removeChild(style);
+        }
+        document.removeEventListener('keydown', exitMatrix);
+        matrixOverlay.removeEventListener('click', exitMatrix);
+        appendLine('Эффект Матрицы деактивирован.');
+      }
       
-      document.addEventListener('keydown', keyHandler);
+      setTimeout(() => {
+        document.addEventListener('keydown', exitMatrix);
+        matrixOverlay.addEventListener('click', exitMatrix);
+      }, 100);
     },
 
     sudo() {
@@ -440,7 +438,6 @@
       appendLine('   (↑ ↑ ↓ ↓ ← → ← → B A)');
     },
 
-    // Специальные команды сайта
     help() {
       appendLine('ДОСТУПНЫЕ КОМАНДЫ:');
       appendLine('');
@@ -618,9 +615,9 @@
       }
     }
   };
+/* #pragma endregion */
 
-  // === ФУНКЦИИ ДЛЯ ИГР ===
-
+/* #pragma region Game Functions */
   function startGuessGame() {
     const number = Math.floor(Math.random() * 100) + 1;
     let attempts = 0;
@@ -712,16 +709,15 @@
       }
     };
   }
+/* #pragma endregion */
 
-  // === ОСНОВНАЯ ЛОГИКА ТЕРМИНАЛА ===
-
+/* #pragma region Terminal Logic */
   function handleCommand(raw) {
     const val = String(raw || '').trim();
     if (!val) return;
     
     appendLine(`lev@LevGamer39:${currentDir === '/home/lev' ? '~' : currentDir}$ ${val}`, 'prompt-line');
     
-    // Добавляем команду в историю (если не пустая и не повтор предыдущей)
     if (val && commandHistory[commandHistory.length - 1] !== val) {
       commandHistory.push(val);
       if (commandHistory.length > 50) {
@@ -732,11 +728,10 @@
     
     historyIndex = commandHistory.length;
     
-    // Проверяем активную игру
     if (activeGame && activeGame.handler) {
       const gameFinished = activeGame.handler(val);
       if (!gameFinished) {
-        return; // Игра продолжается, не обрабатываем как команду
+        return;
       }
     }
     
@@ -753,20 +748,17 @@
     appendLine('Введите "help" для списка доступных команд.');
   }
 
-  // Обработчики клавиш
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       handleCommand(input.value);
       input.value = '';
     } else if (e.key === 'ArrowUp') {
-      // Стрелка вверх - предыдущая команда
       e.preventDefault();
       if (commandHistory.length > 0) {
         historyIndex = Math.max(0, historyIndex - 1);
         input.value = commandHistory[historyIndex] || '';
       }
     } else if (e.key === 'ArrowDown') {
-      // Стрелка вниз - следующая команда
       e.preventDefault();
       if (historyIndex < commandHistory.length - 1) {
         historyIndex = Math.min(commandHistory.length, historyIndex + 1);
@@ -776,18 +768,15 @@
         input.value = '';
       }
     } else if (e.key === 'Tab') {
-      // Tab - автодополнение
       e.preventDefault();
       input.value = autocomplete(input.value);
     }
   });
 
-  // Фокус на input при клике на терминал
   out.addEventListener('click', () => {
     input.focus();
   });
 
-  // initial welcome (only if empty)
   if (out.children.length === 0) {
     appendLine('Добро пожаловать в терминал LevGamer39!');
     appendLine('Backend-разработчик | C++/C#/Python | Linux | Docker');
@@ -797,3 +786,4 @@
     appendLine('');
   }
 })();
+/* #pragma endregion */

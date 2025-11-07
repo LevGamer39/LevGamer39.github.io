@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!doctype html>
 <html lang="ru">
 <head>
@@ -16,7 +17,6 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <!-- ОДИН ЛОГОТИП ДЛЯ ВСЕХ УСТРОЙСТВ -->
       <img src="img/logo.png" alt="LevGamer39" class="brand-logo">
     </div>
     <button class="mobile-menu-btn" id="mobile-menu-btn">
@@ -36,7 +36,7 @@
   </header>
 
  <main class="container">
-  <!-- Главная страница -->
+  <!-- #pragma region Home Page -->
   <section id="home-page" class="page active">
     <section class="hero">
       <h1 class="title">Lev Kirillov</h1>
@@ -94,8 +94,9 @@
       </div>
     </div>
   </section>
+  <!-- #pragma endregion -->
 
-  <!-- Навыки -->
+  <!-- #pragma region Skills Page -->
   <section id="skills-page" class="page">
     <section class="skills-hero">
       <h1>Навыки и технологии</h1>
@@ -152,8 +153,9 @@
       </div>
     </section>
   </section>
+  <!-- #pragma endregion -->
 
-  <!-- Проекты -->
+  <!-- #pragma region Projects Page -->
   <section id="projects-page" class="page">
     <section class="projects-hero">
       <h1>Проекты</h1>
@@ -163,7 +165,6 @@
     <section class="projects-grid">
       <article class="project-card">
         <div class="project-image">
-          <!-- Заготовка для изображения проекта -->
           <img src="img/projects/plant-defense.jpg" alt="Plant Defense Game" loading="lazy">
         </div>
         <h3>Plant Defense</h3>
@@ -174,7 +175,6 @@
 
       <article class="project-card">
         <div class="project-image">
-          <!-- Заготовка для изображения проекта -->
           <img src="img/projects/asf-termux.jpg" alt="ASF on Termux" loading="lazy">
         </div>
         <h3>ASF on Termux</h3>
@@ -185,7 +185,6 @@
 
       <article class="project-card">
         <div class="project-image">
-          <!-- Заготовка для изображения проекта -->
           <img src="img/projects/slanglit-bot.png" alt="Slanglit Bot"  loading="lazy">
         </div>
         <h3>Slanglit Bot</h3>
@@ -196,7 +195,6 @@
 
       <article class="project-card">
         <div class="project-image">
-          <!-- Заготовка для изображения проекта -->
           <img src="img/projects/pi-homelab.jpg" alt="Raspberry Pi Homelab" loading="lazy">
         </div>
         <h3>Raspberry Pi 5 Homelab</h3>
@@ -207,7 +205,6 @@
 
       <article class="project-card">
         <div class="project-image">
-          <!-- Заготовка для изображения проекта -->
           <img src="img/projects/portfolio-site.png" alt="Portfolio Website" loading="lazy">
         </div>
         <h3>Portfolio Website</h3>
@@ -227,8 +224,9 @@
 		</article>
     </section>
   </section>
+  <!-- #pragma endregion -->
 
-  <!-- Контакты -->
+  <!-- #pragma region Contact Page -->
   <section id="contact-page" class="page">
     <section class="contact-hero">
       <h1>Свяжитесь со мной</h1>
@@ -455,6 +453,7 @@
       </aside>
     </section>
   </section>
+  <!-- #pragma endregion -->
   </main>
 
   <footer class="footer">
@@ -465,8 +464,6 @@
   <script src="js/mobile-menu.js"></script>
   <script src="js/terminal.js"></script>
   <script src="js/home.js"></script>
-  <script src="js/projects.js"></script>
-  <script src="js/skills.js"></script>
   <script src="js/contact.js"></script>
   <script src="js/spa-router.js"></script>
   <script src="js/easter-eggs.js"></script>

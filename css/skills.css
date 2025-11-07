@@ -1,3 +1,5 @@
+/* skills.css */
+/* #pragma region Skills Header */
 .container h1 {
   margin-bottom: 8px;
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -7,7 +9,9 @@
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
+/* #pragma endregion */
 
+/* #pragma region Skills Grid */
 .skill-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -59,8 +63,9 @@
 .skill li:last-child {
   margin-bottom: 0;
 }
+/* #pragma endregion */
 
-/* Стили для секции "Профиль разработчика" */
+/* #pragma region Skills Note Section */
 .skills-note {
   margin-top: 40px;
   padding-top: 30px;
@@ -110,7 +115,9 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(77, 163, 255, 0.2);
 }
+/* #pragma endregion */
 
+/* #pragma region Skills Responsive */
 @media (max-width: 900px) {
   .skill-grid {
     grid-template-columns: repeat(1, 1fr);
@@ -212,3 +219,4 @@
     padding: 16px;
   }
 }
+/* #pragma endregion */

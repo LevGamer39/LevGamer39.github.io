@@ -1,6 +1,6 @@
-// js/easter-eggs.js
+/* easter-eggs.js */
+/* #pragma region Easter Eggs Logic */
 document.addEventListener('DOMContentLoaded', function() {
-  // Konami Code
   let konamiCode = [];
   const konamiSequence = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
   
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
   function activateKonamiEffect() {
     console.log('🎉 Konami Code активирован!');
     
-    // Создаем эффект конфетти
     const confettiContainer = document.createElement('div');
     confettiContainer.style.cssText = `
       position: fixed;
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.body.appendChild(confettiContainer);
     
-    // Создаем частицы конфетти
     const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
     for (let i = 0; i < 150; i++) {
       const confetti = document.createElement('div');
@@ -50,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
       confettiContainer.appendChild(confetti);
     }
     
-    // Добавляем анимацию
     const style = document.createElement('style');
     style.textContent = `
       @keyframes confetti-fall {
@@ -66,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // Показываем сообщение
     const message = document.createElement('div');
     message.style.cssText = `
       position: fixed;
@@ -86,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
     message.textContent = '🎉 Konami Code активирован!';
     document.body.appendChild(message);
     
-    // Убираем эффекты через 5 секунд
     setTimeout(() => {
       if (confettiContainer.parentNode) {
         document.body.removeChild(confettiContainer);
@@ -100,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
   }
 
-  // Секретный клик по логотипу
   const logo = document.querySelector('.brand-logo');
   if (logo) {
     let clickCount = 0;
@@ -126,7 +120,6 @@ document.addEventListener('DOMContentLoaded', function() {
   function activateLogoSecret() {
     console.log('🔍 Секретный клик по логотипу активирован!');
     
-    // Создаем плавающие сердца
     const heartsContainer = document.createElement('div');
     heartsContainer.style.cssText = `
       position: fixed;
@@ -141,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     for (let i = 0; i < 20; i++) {
       const heart = document.createElement('div');
-      heart.textContent = '💙';
+      heart.textContent = '💻';
       heart.style.cssText = `
         position: absolute;
         font-size: ${Math.random() * 20 + 15}px;
@@ -178,7 +171,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 3000);
   }
 
-  // Секретный клик по аватару
   const avatar = document.querySelector('.user-avatar');
   if (avatar) {
     avatar.addEventListener('click', function(e) {
@@ -189,12 +181,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function activateAvatarSecret() {
-    console.log('👤 Секретный клик по аватару активирован!');
+    console.log('👤 Клик по аватару активирован!');
     
     const avatar = document.querySelector('.user-avatar');
     if (!avatar) return;
     
-    // Анимация подмигивания
     const originalBorder = avatar.style.border;
     const originalBoxShadow = avatar.style.boxShadow;
     
@@ -206,9 +197,8 @@ document.addEventListener('DOMContentLoaded', function() {
       avatar.style.boxShadow = originalBoxShadow;
     }, 1000);
     
-    // Создаем notification внизу экрана (гарантированно видно)
     const notification = document.createElement('div');
-    notification.textContent = '👋 Привет! Секретный клик по аватару активирован!';
+    notification.textContent = '👋 Привет! Клик по аватару активирован!';
     notification.style.cssText = `
       position: fixed;
       bottom: 20px;
@@ -264,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 3000);
   }
 
-  // Секретное сообщение в консоли браузера
   console.log(`%c
    🔍 Добро пожаловать в консоль!
    
@@ -279,3 +268,4 @@ document.addEventListener('DOMContentLoaded', function() {
    Удачи в исследовании! 🚀
   `, 'color: #4DA3FF; font-family: "JetBrains Mono", monospace; font-size: 14px;');
 });
+/* #pragma endregion */

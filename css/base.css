@@ -1,3 +1,5 @@
+/* base.css */
+/* #pragma region CSS Variables */
 :root{
   --bg:#0e141a;
   --panel:#161d23;
@@ -12,8 +14,9 @@
   --gap:24px;
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+/* #pragma endregion */
 
-/* Подключение Styrene A Web локально */
+/* #pragma region Font Faces */
 @font-face {
   font-family: "Styrene A Web";
   src: url('../fonts/styrene/StyreneAWeb-Light.woff2') format('woff2');
@@ -53,8 +56,9 @@
   font-style: normal;
   font-display: swap;
 }
+/* #pragma endregion */
 
-/* Reset */
+/* #pragma region Base Reset */
 *{box-sizing:border-box}
 html,body{
   height:100%;
@@ -68,8 +72,9 @@ html,body{
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
 }
+/* #pragma endregion */
 
-/* Topbar с фиксированной высотой */
+/* #pragma region Topbar Styles */
 .topbar{
   display:flex;
   align-items:center;
@@ -112,8 +117,9 @@ html,body{
   object-fit: cover;
   border: 2px solid var(--accent);
 }
+/* #pragma endregion */
 
-/* Навигация */
+/* #pragma region Navigation */
 .nav{
   display:flex;
   gap:18px;
@@ -141,12 +147,12 @@ html,body{
   font-weight: 600;
 }
 
-/* Убираем синюю линию под активной ссылкой */
 .nav-link::after {
   display: none;
 }
+/* #pragma endregion */
 
-/* Mobile Navigation */
+/* #pragma region Mobile Navigation */
 .mobile-menu-btn {
   display: none;
   flex-direction: column;
@@ -171,7 +177,6 @@ html,body{
   transform-origin: center;
 }
 
-/* Анимация бургер-меню */
 .mobile-menu-btn.active span:nth-child(1) {
   transform: rotate(45deg) translate(8px, 8px);
   background-color: var(--accent);
@@ -186,8 +191,9 @@ html,body{
   transform: rotate(-45deg) translate(7px, -7px);
   background-color: var(--accent);
 }
+/* #pragma endregion */
 
-/* Layout */
+/* #pragma region Layout */
 .container{
   max-width:var(--max-width);
   margin:28px auto;
@@ -195,8 +201,9 @@ html,body{
   display:grid;
   gap:32px
 }
+/* #pragma endregion */
 
-/* Footer */
+/* #pragma region Footer */
 .footer {
   display: flex;
   justify-content: center;
@@ -210,8 +217,9 @@ html,body{
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
 }
+/* #pragma endregion */
 
-/* Cards */
+/* #pragma region Cards */
 .card {
   background:var(--panel);
   padding:18px;
@@ -219,8 +227,9 @@ html,body{
   border:1px solid var(--card-border);
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+/* #pragma endregion */
 
-/* Типографика */
+/* #pragma region Typography */
 h1, h2, h3, h4 {
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 700;
@@ -256,21 +265,18 @@ p, li, div, span {
   line-height: 1.6;
 }
 
-/* Кнопки и интерактивные элементы */
 .btn, .link, button {
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 500;
   letter-spacing: 0.01em;
 }
 
-/* Мета-информация */
 .meta, .muted {
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
   opacity: 0.8;
 }
 
-/* Терминал оставляем с моноширинным шрифтом */
 .terminal-header,
 .term-output,
 .term-input-row,
@@ -280,7 +286,6 @@ p, li, div, span {
   font-weight: 400;
 }
 
-/* Формы */
 .form-input, .form-select, .form-textarea, .form-label {
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
@@ -289,8 +294,9 @@ p, li, div, span {
 .form-label {
   font-weight: 500;
 }
+/* #pragma endregion */
 
-/* Адаптив для планшетов */
+/* #pragma region Tablet Responsive */
 @media (max-width: 900px) {
   .topbar {
     padding: 8px 24px;
@@ -315,8 +321,9 @@ p, li, div, span {
     font-size: 14px;
   }
 }
+/* #pragma endregion */
 
-/* Адаптив для мобильных */
+/* #pragma region Mobile Responsive */
 @media (max-width: 768px) {
   .topbar {
     padding: 8px 16px;
@@ -400,9 +407,8 @@ p, li, div, span {
     transform: translateY(-1px);
   }
 
-  /* ОДИНАКОВОЕ ЛОГО НА ВСЕХ УСТРОЙСТВАХ */
   .brand-logo {
-    height: 22px; /* Сохраняем тот же размер на мобильных */
+    height: 22px;
   }
   
   .container {
@@ -437,7 +443,6 @@ p, li, div, span {
     padding: 16px;
   }
   
-  /* Улучшения для touch-устройств */
   .nav-link, .btn, .link {
     min-height: 52px;
     display: flex;
@@ -454,8 +459,9 @@ p, li, div, span {
     line-height: 1.5;
   }
 }
+/* #pragma endregion */
 
-/* Для очень маленьких экранов */
+/* #pragma region Small Mobile Responsive */
 @media (max-width: 480px) {
   .topbar {
     padding: 6px 12px;
@@ -463,7 +469,7 @@ p, li, div, span {
   }
   
   .brand-logo {
-    height: 20px; /* Немного уменьшаем для очень маленьких экранов */
+    height: 20px;
   }
   
   .mobile-menu-btn {
@@ -518,7 +524,6 @@ p, li, div, span {
   }
 }
 
-/* Для сверхмалых экранов */
 @media (max-width: 360px) {
   .topbar {
     padding: 4px 10px;
@@ -526,7 +531,7 @@ p, li, div, span {
   }
   
   .brand-logo {
-    height: 18px; /* Еще немного уменьшаем для сверхмалых экранов */
+    height: 18px;
   }
   
   .mobile-menu-btn {
@@ -567,18 +572,17 @@ p, li, div, span {
     font-size: 13px;
   }
 }
+/* #pragma endregion */
 
-/* Запрещаем скролл тела когда меню открыто */
+/* #pragma region Body States */
 body.menu-open {
   overflow: hidden;
 }
 
-/* Плавная анимация для всего сайта */
 html {
   scroll-behavior: smooth;
 }
 
-/* Улучшаем доступность для навигации */
 .nav-link:focus {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -588,6 +592,9 @@ html {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
+/* #pragma endregion */
+
+/* #pragma region Mood Themes */
 body.mood-happy {
   --accent: #FF6B6B;
   --card-border: #FF9E7D;
@@ -629,8 +636,9 @@ body.mood-focus .prompt {
 body.mood-focus .btn:hover {
   box-shadow: 0 10px 26px rgba(69, 183, 209, 0.3);
 }
+/* #pragma endregion */
 
-/* Анимации для эффектов */
+/* #pragma region Animations */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -640,7 +648,6 @@ body.mood-focus .btn:hover {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Стили для игр в терминале */
 .terminal-game {
   border: 1px solid var(--accent);
   padding: 10px;
@@ -650,10 +657,10 @@ body.mood-focus .btn:hover {
   white-space: pre;
 }
 
-/* Адаптивность для эффектов */
 @media (max-width: 768px) {
   .terminal-game {
     font-size: 12px;
     padding: 8px;
   }
 }
+/* #pragma endregion */
