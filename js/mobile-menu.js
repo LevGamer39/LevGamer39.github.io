@@ -73,18 +73,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     window.addEventListener('resize', function() {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 768 && mainNav.classList.contains('active')) {
         closeMobileMenu();
       }
     });
     
     function openMobileMenu() {
       mainNav.style.display = 'flex';
+      body.classList.add('menu-open');
+      document.documentElement.style.overflow = 'hidden';
+      
       setTimeout(() => {
         mainNav.classList.add('active');
         mobileMenuBtn.classList.add('active');
-        body.classList.add('menu-open');
-        document.documentElement.style.overflow = 'hidden';
       }, 10);
     }
     
@@ -122,6 +123,15 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    
+    function handleFocusIn(e) {
+      if (mainNav.classList.contains('active') && !mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        e.preventDefault();
+        mobileMenuBtn.focus();
+      }
+    }
+    
+    document.addEventListener('focusin', handleFocusIn);
   }
 });
 /* #pragma endregion */

@@ -43,7 +43,15 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
     const pageId = this.getAttribute('data-page');
     showPage(pageId);
-    history.replaceState(null, null, window.location.pathname + window.location.search);
+  }
+  
+  function handleLinkClick(e) {
+    e.preventDefault();
+    const href = this.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      const pageId = href.substring(1);
+      showPage(pageId);
+    }
   }
   
   const pageElements = document.querySelectorAll('[data-page]');
@@ -53,14 +61,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   
+  const contentLinks = document.querySelectorAll('.link[data-page], .note-card .link[href^="#"]');
+  contentLinks.forEach(link => {
+    link.addEventListener('click', handleLinkClick);
+  });
+  
   const hash = window.location.hash.replace('#', '');
   if (hash && document.getElementById(hash + '-page')) {
     showPage(hash);
   } else {
     showPage('home');
   }
-  
-  history.replaceState(null, null, window.location.pathname + window.location.search);
   
   window.addEventListener('resize', function() {
     if (window.innerWidth > 768) {
