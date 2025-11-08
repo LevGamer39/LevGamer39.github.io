@@ -12,89 +12,264 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     if (konamiCode.join(',') === konamiSequence.join(',')) {
-      activateKonamiEffect();
+      activateRetroWaveEffect();
       konamiCode = [];
     }
   });
 
-  function activateKonamiEffect() {
-    console.log('🎉 Konami Code активирован!');
+  function activateRetroWaveEffect() {
+    console.log('🌈 Retro Wave эффект активирован!');
     
-    const confettiContainer = document.createElement('div');
-    confettiContainer.style.cssText = `
+    const effectContainer = document.createElement('div');
+    effectContainer.style.cssText = `
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
       z-index: 10000;
+      overflow: hidden;
+      font-family: 'Courier New', monospace;
     `;
-    document.body.appendChild(confettiContainer);
+    document.body.appendChild(effectContainer);
+
+    const canvas = document.createElement('canvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    canvas.style.cssText = `
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    `;
+    effectContainer.appendChild(canvas);
     
-    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
-    for (let i = 0; i < 150; i++) {
-      const confetti = document.createElement('div');
-      confetti.style.cssText = `
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        background: ${colors[Math.floor(Math.random() * colors.length)]};
-        top: -20px;
-        left: ${Math.random() * 100}%;
-        animation: confetti-fall ${Math.random() * 3 + 2}s linear forwards;
-        border-radius: 50%;
-      `;
-      confettiContainer.appendChild(confetti);
+    const ctx = canvas.getContext('2d');
+
+    const waves = [];
+    const waveCount = 8;
+    
+    for (let i = 0; i < waveCount; i++) {
+      waves.push({
+        amplitude: 50 + Math.random() * 100,
+        frequency: 0.005 + Math.random() * 0.01,
+        speed: 1 + Math.random() * 2,
+        phase: Math.random() * Math.PI * 2,
+        color: `hsl(${i * 45}, 100%, 60%)`,
+        width: 3,
+        y: (i + 1) * (canvas.height / (waveCount + 1))
+      });
+    }
+
+    const particles = [];
+    const particleCount = 200;
+    
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 3 + 1,
+        speed: Math.random() * 2 + 0.5,
+        color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+        waveOffset: Math.random() * Math.PI * 2
+      });
+    }
+
+    const shapes = [];
+    const shapeCount = 15;
+    
+    for (let i = 0; i < shapeCount; i++) {
+      shapes.push({
+        type: Math.floor(Math.random() * 3),
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: 20 + Math.random() * 40,
+        speedX: (Math.random() - 0.5) * 4,
+        speedY: (Math.random() - 0.5) * 4,
+        rotation: Math.random() * Math.PI * 2,
+        rotationSpeed: (Math.random() - 0.5) * 0.02,
+        color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+        alpha: 0.3 + Math.random() * 0.4
+      });
+    }
+
+    let startTime = Date.now();
+    let animationId;
+
+    function animate() {
+      const currentTime = Date.now();
+      const elapsed = currentTime - startTime;
+      
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      waves.forEach((wave, index) => {
+        ctx.beginPath();
+        ctx.moveTo(0, wave.y);
+        
+        for (let x = 0; x < canvas.width; x += 2) {
+          const y = wave.y + Math.sin(x * wave.frequency + wave.phase + elapsed * 0.001 * wave.speed) * wave.amplitude;
+          ctx.lineTo(x, y);
+        }
+        
+        ctx.strokeStyle = wave.color;
+        ctx.lineWidth = wave.width;
+        ctx.stroke();
+        
+        for (let x = 0; x < canvas.width; x += 50) {
+          const y = wave.y + Math.sin(x * wave.frequency + wave.phase + elapsed * 0.001 * wave.speed) * wave.amplitude;
+          const gradient = ctx.createRadialGradient(x, y, 0, x, y, 20);
+          gradient.addColorStop(0, wave.color);
+          gradient.addColorStop(1, 'transparent');
+          
+          ctx.fillStyle = gradient;
+          ctx.beginPath();
+          ctx.arc(x, y, 20, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      particles.forEach(particle => {
+        particle.x += particle.speed;
+        particle.y += Math.sin(particle.x * 0.01 + particle.waveOffset + elapsed * 0.001) * 2;
+        
+        if (particle.x > canvas.width) {
+          particle.x = 0;
+          particle.y = Math.random() * canvas.height;
+        }
+        if (particle.y > canvas.height) particle.y = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        
+        ctx.fillStyle = particle.color;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+        
+        const glow = ctx.createRadialGradient(
+          particle.x, particle.y, 0,
+          particle.x, particle.y, particle.size * 3
+        );
+        glow.addColorStop(0, particle.color);
+        glow.addColorStop(1, 'transparent');
+        
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size * 3, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      shapes.forEach(shape => {
+        shape.x += shape.speedX;
+        shape.y += shape.speedY;
+        shape.rotation += shape.rotationSpeed;
+        
+        if (shape.x < 0 || shape.x > canvas.width) shape.speedX *= -1;
+        if (shape.y < 0 || shape.y > canvas.height) shape.speedY *= -1;
+        
+        ctx.save();
+        ctx.translate(shape.x, shape.y);
+        ctx.rotate(shape.rotation);
+        ctx.globalAlpha = shape.alpha;
+        ctx.fillStyle = shape.color;
+        
+        switch (shape.type) {
+          case 0:
+            ctx.beginPath();
+            ctx.moveTo(0, -shape.size / 2);
+            ctx.lineTo(shape.size / 2, shape.size / 2);
+            ctx.lineTo(-shape.size / 2, shape.size / 2);
+            ctx.closePath();
+            ctx.fill();
+            break;
+          case 1:
+            ctx.fillRect(-shape.size / 2, -shape.size / 2, shape.size, shape.size);
+            break;
+          case 2:
+            ctx.beginPath();
+            ctx.arc(0, 0, shape.size / 2, 0, Math.PI * 2);
+            ctx.fill();
+            break;
+        }
+        
+        ctx.restore();
+      });
+
+      ctx.save();
+      ctx.globalAlpha = Math.sin(elapsed * 0.002) * 0.5 + 0.5;
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 48px Courier New';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('RETRO WAVE', canvas.width / 2, canvas.height / 2);
+      
+      ctx.font = '20px Courier New';
+      ctx.fillText('KONAMI CODE ACTIVATED', canvas.width / 2, canvas.height / 2 + 50);
+      
+      ctx.font = '18px Courier New';
+      ctx.fillStyle = '#0f0';
+      ctx.fillText('Press any key to close', canvas.width / 2, canvas.height / 2 + 100);
+      ctx.restore();
+
+      animationId = requestAnimationFrame(animate);
+    }
+
+    function closeEffect() {
+      cancelAnimationFrame(animationId);
+      
+      effectContainer.style.opacity = '1';
+      let opacity = 1;
+      const fadeOut = setInterval(() => {
+        opacity -= 0.05;
+        effectContainer.style.opacity = opacity;
+        if (opacity <= 0) {
+          clearInterval(fadeOut);
+          if (effectContainer.parentNode) {
+            document.body.removeChild(effectContainer);
+          }
+          document.removeEventListener('keydown', handleAnyKeyClose);
+          document.removeEventListener('click', handleAnyKeyClose);
+        }
+      }, 16);
+    }
+
+    function handleAnyKeyClose() {
+      closeEffect();
     }
     
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes confetti-fall {
-        0% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(100vh) rotate(360deg);
-          opacity: 0;
-        }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    const message = document.createElement('div');
-    message.style.cssText = `
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.9);
-      color: #fff;
-      padding: 20px 40px;
-      border-radius: 10px;
-      font-size: 24px;
-      font-weight: bold;
-      z-index: 10001;
-      border: 2px solid #4DA3FF;
-      font-family: "Styrene A Web", sans-serif;
-    `;
-    message.textContent = '🎉 Konami Code активирован!';
-    document.body.appendChild(message);
-    
-    setTimeout(() => {
-      if (confettiContainer.parentNode) {
-        document.body.removeChild(confettiContainer);
-      }
-      if (message.parentNode) {
-        document.body.removeChild(message);
-      }
-      if (style.parentNode) {
-        document.head.removeChild(style);
-      }
-    }, 5000);
-  }
+    document.addEventListener('keydown', handleAnyKeyClose);
+    document.addEventListener('click', handleAnyKeyClose);
 
+    animate();
+
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(880, audioContext.currentTime + 0.5);
+      
+      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 1);
+      
+      oscillator.start();
+      oscillator.stop(audioContext.currentTime + 1);
+    } catch (e) {
+      console.log('Аудио не поддерживается');
+    }
+
+    if (navigator.vibrate) {
+      navigator.vibrate([100, 50, 100, 50, 200]);
+    }
+  }
+/* #pragma endregion */
+
+/* #pragma region Logo Secret */
   const logo = document.querySelector('.brand-logo');
   if (logo) {
     let clickCount = 0;
@@ -170,7 +345,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 3000);
   }
+/* #pragma endregion */
 
+/* #pragma region Avatar Secret */
   const avatar = document.querySelector('.user-avatar');
   if (avatar) {
     avatar.addEventListener('click', function(e) {
@@ -253,14 +430,16 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 3000);
   }
+/* #pragma endregion */
 
+/* #pragma region Console Message */
   console.log(`%c
    🔍 Добро пожаловать в консоль!
    
    Исходный код: https://github.com/LevGamer39/LevGamer39.github.io
    
    Нашел пасхалки?
-   - Konami Code: ↑↑↓↓←→←→BA
+   - Konami Code: ↑↑↓↓←→←→BA (Retro Wave эффект)
    - 5 кликов по логотипу
    - Клик по аватару
    - Команды в терминале: matrix, sudo, hack, secret
