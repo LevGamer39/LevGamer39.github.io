@@ -29,7 +29,7 @@
       '.secret': 'FILE - Попробуй команду: secret'
     },
     '/home/lev/projects': {
-      'plant-defense': 'DIR - Игра на C#/Unity',
+      'garden-defence': 'DIR - Игра на C#/Unity',
       'asf-termux': 'DIR - Автоматизация Steam',
       'slanglit-bot': 'DIR - Telegram бот',
       'pi-homelab': 'DIR - Raspberry Pi лаборатория',
@@ -441,7 +441,7 @@
     projects() {
       appendLine('МОИ ПРОЕКТЫ');
       appendLine('');
-      appendLine('Plant Defense');
+      appendLine('Garden Defence');
       appendLine('  Игра на C# (Unity) с системой автоматической обороны');
       appendLine('  Технологии: C# · Unity · Game Dev · 3D Game');
       appendLine('');
@@ -510,7 +510,7 @@
       appendLine('  Backend-разработчик с фокусом на C++, C# и Python.');
       appendLine('  Создаю серверные приложения, системы автоматизации,');
       appendLine('  API и бизнес-логику. Работаю с Linux (Ubuntu, Arch, Debian),');
-      appendLine('  настраиваю серверные среды и управляю сервисами через Docker.');
+      appendLine('  настраиваю серверные среды и управлю сервисами через Docker.');
       appendLine('');
       appendLine('СПЕЦИАЛИЗАЦИЯ:');
       appendLine('  Backend-разработка и системное программирование');
