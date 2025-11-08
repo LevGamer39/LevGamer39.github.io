@@ -307,80 +307,48 @@
       appendLine('Инициализация цифрового дождя...');
       
       const matrixOverlay = document.createElement('div');
-      matrixOverlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 20, 0, 0.9);
-        z-index: 9999;
-        font-family: "JetBrains Mono", monospace;
-        color: #0f0;
-        overflow: hidden;
-        cursor: pointer;
-      `;
+      matrixOverlay.className = 'matrix-overlay';
       
+      const canvas = document.createElement('canvas');
+      matrixOverlay.appendChild(canvas);
       document.body.appendChild(matrixOverlay);
       
-      const columns = 40;
-      const chars = '01abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()';
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width = document.body.offsetWidth;
+      const h = canvas.height = document.body.offsetHeight;
       
-      for (let i = 0; i < columns; i++) {
-        const column = document.createElement('div');
-        column.style.cssText = `
-          position: absolute;
-          top: -100px;
-          left: ${(i / columns) * 100}%;
-          font-size: 14px;
-          animation: matrix-fall ${Math.random() * 3 + 2}s linear infinite;
-          animation-delay: ${Math.random() * 2}s;
-          white-space: pre;
-          line-height: 1.2;
-          pointer-events: none;
-        `;
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, w, h);
+      
+      const cols = Math.floor(w / 20) + 1;
+      const ypos = Array(cols).fill(0);
+      
+      function matrixEffect() {
+        ctx.fillStyle = '#0001';
+        ctx.fillRect(0, 0, w, h);
         
-        let text = '';
-        const rows = 25;
-        for (let j = 0; j < rows; j++) {
-          const randomChar = chars[Math.floor(Math.random() * chars.length)];
-          text += randomChar + '\n';
-        }
-        column.textContent = text;
+        ctx.fillStyle = '#0f0';
+        ctx.font = '15pt monospace';
         
-        matrixOverlay.appendChild(column);
+        ypos.forEach((y, ind) => {
+          const text = String.fromCharCode(Math.random() * 128);
+          const x = ind * 20;
+          ctx.fillText(text, x, y);
+          
+          if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+          else ypos[ind] = y + 20;
+        });
       }
       
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes matrix-fall {
-          from { 
-            transform: translateY(-100px); 
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          to { 
-            transform: translateY(100vh); 
-            opacity: 0;
-          }
-        }
-      `;
-      document.head.appendChild(style);
+      const matrixInterval = setInterval(matrixEffect, 50);
       
       appendLine('Эффект Матрицы активирован!');
       appendLine('Для выхода нажмите любую клавишу или кликните на экран.');
       
       function exitMatrix() {
+        clearInterval(matrixInterval);
         if (matrixOverlay.parentNode) {
           document.body.removeChild(matrixOverlay);
-        }
-        if (style.parentNode) {
-          document.head.removeChild(style);
         }
         document.removeEventListener('keydown', exitMatrix);
         matrixOverlay.removeEventListener('click', exitMatrix);
