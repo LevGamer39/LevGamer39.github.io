@@ -56,14 +56,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
   const pageElements = document.querySelectorAll('[data-page]');
   pageElements.forEach(element => {
-    if (element.classList.contains('nav-link')) {
-      element.addEventListener('click', handlePageClick);
-    }
+    element.addEventListener('click', handlePageClick);
   });
   
   const contentLinks = document.querySelectorAll('.link[data-page], .note-card .link[href^="#"]');
   contentLinks.forEach(link => {
     link.addEventListener('click', handleLinkClick);
+  });
+  
+  const homePageButtons = document.querySelectorAll('.actions .btn[data-page]');
+  homePageButtons.forEach(button => {
+    button.addEventListener('click', handlePageClick);
   });
   
   const hash = window.location.hash.replace('#', '');
