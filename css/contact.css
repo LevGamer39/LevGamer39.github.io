@@ -178,7 +178,7 @@
   appearance: none;
   background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234DA3FF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 16px center / 16px;
   cursor: pointer;
-  color: var(--muted);
+  color: var(--text);
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -188,7 +188,7 @@
 
 .form-select option {
   background: var(--panel);
-  color: var(--muted);
+  color: var(--text);
   padding: 12px;
   border: none;
   font-size: 14px;
@@ -201,13 +201,13 @@
 }
 
 .form-select option:checked {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--muted);
+  background: var(--accent);
+  color: white;
 }
 
 .form-select option:checked:focus {
-  background: rgba(255, 255, 255, 0.05) !important;
-  color: var(--muted) !important;
+  background: var(--accent) !important;
+  color: white !important;
 }
 /* #pragma endregion */
 

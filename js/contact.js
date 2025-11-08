@@ -22,22 +22,247 @@ document.addEventListener('DOMContentLoaded', function() {
       autoResizeTextarea.call(messageField);
     }
 
+    const nameFields = ['c-lastname', 'c-firstname', 'c-middlename'];
+    nameFields.forEach(fieldId => {
+      const field = document.getElementById(fieldId);
+      if (field) {
+        field.addEventListener('blur', validateNameField);
+        field.addEventListener('input', handleNameInput);
+        field.addEventListener('keydown', preventSpacesInName);
+        field.addEventListener('focus', clearFieldStyles);
+      }
+    });
+
     const phoneField = document.getElementById('c-phone');
     if (phoneField) {
       phoneField.addEventListener('input', handlePhoneInput);
       phoneField.addEventListener('keydown', handlePhoneKeydown);
+      phoneField.addEventListener('focus', clearFieldStyles);
     }
 
     const socialField = document.getElementById('c-social');
     if (socialField) {
       socialField.addEventListener('blur', validateSocial);
+      socialField.addEventListener('focus', clearFieldStyles);
     }
+
+    const emailField = document.getElementById('c-email');
+    if (emailField) {
+      emailField.addEventListener('blur', validateEmail);
+      emailField.addEventListener('input', handleEmailInput);
+      emailField.addEventListener('focus', clearFieldStyles);
+    }
+
+    const subjectField = document.getElementById('c-subject');
+    if (subjectField) {
+      subjectField.addEventListener('focus', clearFieldStyles);
+    }
+
+    if (messageField) {
+      messageField.addEventListener('focus', clearFieldStyles);
+    }
+
+    initSelectStyles();
 
     form.addEventListener('submit', handleFormSubmit);
 
     if (clearBtn) {
       clearBtn.addEventListener('click', clearForm);
     }
+  }
+
+  function clearFieldStyles() {
+    this.classList.remove('valid', 'invalid');
+    const errorElement = this.parentNode.querySelector('.error-message');
+    if (errorElement) {
+      errorElement.remove();
+    }
+  }
+
+  function initSelectStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+      .form-select {
+        background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234DA3FF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 16px center / 16px;
+        color: var(--text);
+      }
+      .form-select option {
+        background: var(--panel);
+        color: var(--text);
+        padding: 12px;
+        border: none;
+      }
+      .form-select option:hover {
+        background: var(--accent);
+        color: white;
+      }
+      .form-select option:checked {
+        background: var(--accent);
+        color: white;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function preventSpacesInName(e) {
+    if (e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      return false;
+    }
+  }
+
+  function handleNameInput(e) {
+    const value = this.value.replace(/\s/g, '');
+    if (value !== this.value) {
+      this.value = value;
+    }
+    
+    if (this.classList.contains('invalid')) {
+      clearFieldError(this);
+    }
+  }
+
+  function handleEmailInput(e) {
+    if (this.classList.contains('invalid')) {
+      clearFieldError(this);
+    }
+  }
+
+  function validateNameField() {
+    const value = this.value.trim();
+    const fieldName = this.id === 'c-lastname' ? 'Фамилия' : 
+                     this.id === 'c-firstname' ? 'Имя' : 'Отчество';
+    
+    if (this.id === 'c-middlename' && !value) {
+      clearFieldError(this);
+      return true;
+    }
+    
+    if (!value) {
+      showFieldError(this, `${fieldName} обязательно для заполнения`);
+      return false;
+    }
+    
+    if (/\s/.test(value)) {
+      showFieldError(this, `${fieldName} не должно содержать пробелы`);
+      return false;
+    }
+    
+    if (value.length < 2) {
+      showFieldError(this, `${fieldName} должно содержать минимум 2 символа`);
+      return false;
+    }
+    
+    if (value.length > 50) {
+      showFieldError(this, `${fieldName} должно содержать не более 50 символов`);
+      return false;
+    }
+    
+    if (!/^[a-zA-Zа-яА-ЯёЁ\-']+$/u.test(value)) {
+      showFieldError(this, `${fieldName} может содержать только буквы, дефисы и апострофы`);
+      return false;
+    }
+    
+    if (/[-']{2,}/.test(value) || /^[-']|[-']$/.test(value)) {
+      showFieldError(this, `${fieldName} содержит некорректное использование дефисов или апострофов`);
+      return false;
+    }
+    
+    clearFieldError(this);
+    return true;
+  }
+
+  function validateEmail() {
+    const value = this.value.trim();
+    
+    if (!value) {
+      showFieldError(this, 'Email обязателен для заполнения');
+      return false;
+    }
+    
+    if (/[а-яА-Я]/.test(value)) {
+      showFieldError(this, 'Email не должен содержать русские буквы');
+      return false;
+    }
+    
+    if (value.includes(' ')) {
+      showFieldError(this, 'Email не должен содержать пробелы');
+      return false;
+    }
+    
+    if (!value.includes('@')) {
+      showFieldError(this, 'Email должен содержать символ @');
+      return false;
+    }
+    
+    const parts = value.split('@');
+    if (parts.length !== 2) {
+      showFieldError(this, 'Некорректный формат email');
+      return false;
+    }
+    
+    const localPart = parts[0];
+    const domainPart = parts[1];
+    
+    if (!localPart) {
+      showFieldError(this, 'Отсутствует локальная часть email (перед @)');
+      return false;
+    }
+    
+    if (!domainPart) {
+      showFieldError(this, 'Отсутствует доменная часть email (после @)');
+      return false;
+    }
+    
+    if (!domainPart.includes('.')) {
+      showFieldError(this, 'Доменная часть должна содержать точку');
+      return false;
+    }
+    
+    if (domainPart.startsWith('.') || domainPart.endsWith('.')) {
+      showFieldError(this, 'Доменная часть не может начинаться или заканчиваться точкой');
+      return false;
+    }
+    
+    if (localPart.startsWith('.') || localPart.endsWith('.')) {
+      showFieldError(this, 'Локальная часть не может начинаться или заканчиваться точкой');
+      return false;
+    }
+    
+    if (localPart.includes('..') || domainPart.includes('..')) {
+      showFieldError(this, 'Email не может содержать две точки подряд');
+      return false;
+    }
+    
+    const domainParts = domainPart.split('.');
+    if (domainParts.length < 2) {
+      showFieldError(this, 'Доменная часть должна содержать как минимум одну точку');
+      return false;
+    }
+    
+    const tld = domainParts[domainParts.length - 1];
+    if (tld.length < 2) {
+      showFieldError(this, 'Доменная зона должна содержать минимум 2 символа');
+      return false;
+    }
+    
+    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value)) {
+      showFieldError(this, 'Некорректный формат email адреса');
+      return false;
+    }
+    
+    if (value.length > 254) {
+      showFieldError(this, 'Email слишком длинный (максимум 254 символа)');
+      return false;
+    }
+    
+    if (localPart.length > 64) {
+      showFieldError(this, 'Локальная часть email слишком длинная');
+      return false;
+    }
+    
+    clearFieldError(this);
+    return true;
   }
 
   function autoResizeTextarea() {
@@ -217,9 +442,22 @@ document.addEventListener('DOMContentLoaded', function() {
   function validateAllFields() {
     let isValid = true;
     
+    const nameFields = [
+      { id: 'c-lastname', required: true },
+      { id: 'c-firstname', required: true },
+      { id: 'c-middlename', required: false }
+    ];
+    
+    nameFields.forEach(({ id, required }) => {
+      const field = document.getElementById(id);
+      if (field && (required || field.value.trim())) {
+        if (!validateNameField.call(field)) {
+          isValid = false;
+        }
+      }
+    });
+
     const requiredFields = [
-      { id: 'c-lastname', validator: validateRequired },
-      { id: 'c-firstname', validator: validateRequired },
       { id: 'c-email', validator: validateEmail },
       { id: 'c-subject', validator: validateSelect },
       { id: 'c-msg', validator: validateMessage }
@@ -239,38 +477,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     return isValid;
   }
-
-  function validateRequired() {
-    const value = this.value.trim();
-    if (!value) {
-      showFieldError(this, 'Это поле обязательно для заполнения');
-      return false;
-    }
-    clearFieldError(this);
-    return true;
-  }
-
-  function validateEmail() {
-	  const value = this.value.trim();
-	  
-	  if (!value) {
-		showFieldError(this, 'Email обязателен для заполнения');
-		return false;
-	  }
-	  
-	  if (/[а-яА-Я]/.test(value)) {
-		showFieldError(this, 'Email не должен содержать русские буквы');
-		return false;
-	  }
-	  
-	  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-		showFieldError(this, 'Введите корректный email адрес');
-		return false;
-	  }
-	  
-	  clearFieldError(this);
-	  return true;
-	}
 
   function validateSelect() {
     if (!this.value) {
@@ -389,7 +595,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function clearFieldError(field) {
     field.classList.remove('invalid');
-    field.classList.add('valid');
     const errorElement = field.parentNode.querySelector('.error-message');
     if (errorElement) {
       errorElement.remove();
