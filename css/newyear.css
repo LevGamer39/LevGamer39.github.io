@@ -1,0 +1,53 @@
+/* css/newyear.css */
+
+.user {
+    position: relative;
+}
+
+.user::after {
+    content: '🎅';
+    position: absolute;
+    top: -14px; 
+    right: 50%;
+    transform: translateX(110%) rotate(10deg);
+    font-size: 24px;
+    z-index: 1000;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+body {
+    overflow-x: hidden !important;
+}
+
+.terminal:hover, .project-card:hover {
+    border-color: #3BA55D !important;
+    box-shadow: 0 0 15px rgba(59, 165, 93, 0.1) !important;
+}
+
+.nav-link.active {
+    color: #4DA3FF !important;
+    text-shadow: 0 0 8px rgba(77, 163, 255, 0.5);
+}
+
+.footer-snow-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--muted);
+    padding: 5px 10px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.footer-snow-switch:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+}
+
+.footer-snow-switch.active {
+    color: var(--accent);
+}

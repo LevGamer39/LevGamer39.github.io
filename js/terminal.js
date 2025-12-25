@@ -745,13 +745,59 @@
     input.focus();
   });
 
+/* #pragma region Initialization and New Year Logic */
+  const IS_NEW_YEAR_MODE = true; 
+
+  function applyNYTheme() {
+    let link = document.getElementById('ny-styles');
+    if (IS_NEW_YEAR_MODE) {
+      if (!link) {
+        link = document.createElement('link');
+        link.id = 'ny-styles';
+        link.rel = 'stylesheet';
+        link.href = 'css/newyear.css';
+        document.head.appendChild(link);
+      }
+      if (window.snowSystem && !window.snowSystem.isEnabled()) window.snowSystem.toggle();
+    } else if (link) {
+      link.remove();
+    }
+  }
+
+  applyNYTheme();
+
   if (out.children.length === 0) {
+    if (IS_NEW_YEAR_MODE) {
+      const treeLines = [
+        "      ⭐",
+        "     /+\\",
+        "    /o..\\",
+        "   /..o..\\",
+        "     |_|"
+      ];
+
+      treeLines.forEach((line, index) => {
+        const div = document.createElement('div');
+        div.style.fontFamily = '"JetBrains Mono", monospace';
+        div.style.whiteSpace = 'pre';
+        div.style.lineHeight = '1.2';
+        
+        if (index === 0) {
+            div.innerHTML = `<span style="display:inline-block; width: 6.5ch; text-align: right; color: #FFD700; text-shadow: 0 0 10px gold;">⭐</span>`;
+        } else {
+            div.textContent = line;
+            div.style.color = index === 4 ? '#795548' : '#3BA55D';
+        }
+        out.appendChild(div);
+      });
+      appendLine('🎄 С Новым Годом 2026! 🎄', 'prompt-line');
+      appendLine('');
+    }
     appendLine('Добро пожаловать в терминал LevGamer39!');
     appendLine('Backend-разработчик | C++/C#/Python | Linux | Docker');
     appendLine('');
     appendLine('Для начала работы введите "help" для списка команд.');
-    appendLine('Попробуйте Linux команды: ls, cd, pwd, cat, whoami');
-    appendLine('');
   }
+  /* #pragma endregion */
 })();
 /* #pragma endregion */
