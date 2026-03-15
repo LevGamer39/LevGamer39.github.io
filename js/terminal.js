@@ -746,7 +746,7 @@
   });
 
 /* #pragma region Initialization and New Year Logic */
-  const IS_NEW_YEAR_MODE = true; 
+  const IS_NEW_YEAR_MODE = false; 
 
   function applyNYTheme() {
     let link = document.getElementById('ny-styles');
