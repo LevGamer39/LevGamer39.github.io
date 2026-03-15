@@ -1,4 +1,4 @@
-const IS_NEW_YEAR_MODE = true; 
+const IS_NEW_YEAR_MODE = false; 
 if (IS_NEW_YEAR_MODE) {
 	const snowCanvas = document.createElement('canvas');
 	snowCanvas.id = 'snow-canvas';
