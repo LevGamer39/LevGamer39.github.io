@@ -1,5 +1,5 @@
-/* spa.css */
-/* #pragma region SPA Base Styles */
+﻿
+
 .page {
   display: none;
   width: 100%;
@@ -32,9 +32,9 @@
     transform: translateY(-10px);
   }
 }
-/* #pragma endregion */
 
-/* #pragma region SPA Navigation */
+
+
 .nav-link {
   cursor: pointer;
   transition: all 0.2s ease;
@@ -62,9 +62,9 @@
 .nav-link:hover::after {
   width: 60%;
 }
-/* #pragma endregion */
 
-/* #pragma region SPA Buttons */
+
+
 .actions {
   display: flex;
   gap: 14px;
@@ -119,9 +119,9 @@
   background: #1a2026;
   color: var(--text);
 }
-/* #pragma endregion */
 
-/* #pragma region SPA Layout */
+
+
 .container {
   position: relative;
   min-height: 60vh;
@@ -151,44 +151,6 @@
   margin-bottom: 40px;
 }
 
-.page-transition {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease-in-out;
-}
-
-.page-transition.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.page.loading {
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.page.loading::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 40px;
-  height: 40px;
-  margin: -20px 0 0 -20px;
-  border: 3px solid var(--accent);
-  border-top: 3px solid transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  z-index: 1000;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-/* #pragma endregion */
-
-/* #pragma region SPA Mobile */
 @media (max-width: 768px) {
   .page {
     animation-duration: 0.2s;
@@ -263,4 +225,3 @@
     display: none;
   }
 }
-/* #pragma endregion */

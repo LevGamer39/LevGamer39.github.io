@@ -1,5 +1,5 @@
-/* contact.js */
-/* #pragma region Contact Form Logic */
+﻿
+
 document.addEventListener('DOMContentLoaded', function() {
   const API_BASE_URL = 'https://levgamer39.pythonanywhere.com';
   const form = document.getElementById('contact-form');
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function validateNameField() {
     const value = this.value.trim();
     const fieldName = this.id === 'c-lastname' ? 'Фамилия' : 
-                     this.id === 'c-firstname' ? 'Имя' : 'Отчество';
+        this.id === 'c-firstname' ? 'Имя' : 'Отчество';
     
     if (this.id === 'c-middlename' && !value) {
       clearFieldError(this);
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
     clearAllErrors();
     
     if (!validateAllFields()) {
-      showStatus('❌ Пожалуйста, исправьте ошибки в форме', 'error');
+      showStatus('Пожалуйста, исправьте ошибки в форме', 'error');
       return;
     }
     
@@ -422,7 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const result = await sendToAPI(formData);
       
       if (result.success) {
-        showStatus('✅ Сообщение отправлено! Отвечу в течение 1-2 часов.', 'success');
+        showStatus('Сообщение отправлено! Отвечу в течение 1-2 часов.', 'success');
         resetForm();
         
         setTimeout(() => {
@@ -433,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       
     } catch (error) {
-      showStatus('❌ Ошибка отправки: ' + error.message, 'error');
+      showStatus('Ошибка отправки: ' + error.message, 'error');
     } finally {
       setLoadingState(false);
     }
@@ -626,4 +626,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
-/* #pragma endregion */

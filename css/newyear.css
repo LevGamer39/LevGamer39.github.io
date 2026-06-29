@@ -1,11 +1,11 @@
-/* css/newyear.css */
+﻿
 
 .user {
     position: relative;
 }
 
 .user::after {
-    content: '🎅';
+    content: 'рџЋ…';
     position: absolute;
     top: -14px; 
     right: 50%;

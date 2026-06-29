@@ -1,6 +1,6 @@
-/* contact.css */
+﻿
 
-/* #pragma region Contact Hero */
+
 .contact-hero {
   text-align: center;
   margin-bottom: 40px;
@@ -25,9 +25,9 @@
   font-weight: 300;
   line-height: 1.5;
 }
-/* #pragma endregion */
 
-/* #pragma region Contact Layout */
+
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 300px;
@@ -61,19 +61,6 @@
   letter-spacing: -0.005em;
 }
 
-.telegram-badge {
-  background: linear-gradient(135deg, #3BA55D, #4CAF50);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  letter-spacing: 0.01em;
-}
 
 .card-subtitle {
   color: var(--muted);
@@ -83,9 +70,9 @@
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
 }
-/* #pragma endregion */
 
-/* #pragma region Form Elements */
+
+
 .honeypot {
   position: absolute;
   left: -9999px;
@@ -172,9 +159,9 @@
   background: rgba(224, 92, 92, 0.05);
   animation: shake 0.3s ease-in-out;
 }
-/* #pragma endregion */
 
-/* #pragma region Select Styles */
+
+
 .form-select {
   appearance: none;
   background: var(--panel) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234DA3FF'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 16px center / 16px;
@@ -250,9 +237,9 @@
     }
   }
 }
-/* #pragma endregion */
 
-/* #pragma region Textarea Styles */
+
+
 .form-textarea {
   resize: none;
   min-height: 120px;
@@ -314,9 +301,9 @@
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
 }
-/* #pragma endregion */
 
-/* #pragma region Button Styles */
+
+
 .form-actions {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -413,9 +400,9 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
-/* #pragma endregion */
 
-/* #pragma region Delivery Info */
+
+
 .delivery-info {
   text-align: center;
   margin-top: 16px;
@@ -435,9 +422,9 @@
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   letter-spacing: 0.01em;
 }
-/* #pragma endregion */
 
-/* #pragma region Contact Links */
+
+
 .contact-links { 
   padding: 25px;
   position: sticky;
@@ -539,9 +526,9 @@
   background: rgba(77, 163, 255, 0.05);
   border-color: rgba(77, 163, 255, 0.2);
 }
-/* #pragma endregion */
 
-/* #pragma region Contact Info */
+
+
 .contact-info {
   margin-bottom: 24px;
 }
@@ -597,9 +584,9 @@
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   letter-spacing: 0.01em;
 }
-/* #pragma endregion */
 
-/* #pragma region Support Note */
+
+
 .support-note {
   display: flex;
   align-items: flex-start;
@@ -626,9 +613,9 @@
 .support-text strong {
   font-weight: 600;
 }
-/* #pragma endregion */
 
-/* #pragma region Error Messages */
+
+
 .error-message {
   color: var(--danger);
   font-size: 12px;
@@ -637,9 +624,9 @@
   font-family: "Styrene A Web", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 500;
 }
-/* #pragma endregion */
 
-/* #pragma region Status Messages */
+
+
 .status-message {
   padding: 12px 16px;
   border-radius: 10px;
@@ -671,15 +658,15 @@
   color: var(--accent);
   display: block;
 }
-/* #pragma endregion */
 
-/* #pragma region Animations */
+
+
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-5px); }
   75% { transform: translateX(5px); }
 }
-/* #pragma endregion */
+
 
 @-moz-document url-prefix() {
   .form-select {
@@ -701,7 +688,7 @@
   }
 }
 
-/* #pragma region Contact Responsive */
+
 @media (max-width: 1000px) {
   .contact-grid {
     grid-template-columns: 1fr;
@@ -948,9 +935,9 @@
     font-size: 14px;
   }
 }
-/* #pragma endregion */
 
-/* #pragma region Contact Form Fixes */
+
+
 #contact-page .container {
   box-sizing: border-box;
 }
@@ -978,4 +965,4 @@
 .form-group:last-of-type {
   margin-bottom: 0;
 }
-/* #pragma endregion */
+

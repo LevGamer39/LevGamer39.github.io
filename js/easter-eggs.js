@@ -1,5 +1,5 @@
-/* easter-eggs.js */
-/* #pragma region Easter Eggs Logic */
+﻿
+
 document.addEventListener('DOMContentLoaded', function() {
   let konamiCode = [];
   const konamiSequence = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
@@ -267,9 +267,9 @@ document.addEventListener('DOMContentLoaded', function() {
       navigator.vibrate([100, 50, 100, 50, 200]);
     }
   }
-/* #pragma endregion */
 
-/* #pragma region Logo Secret */
+
+
   const logo = document.querySelector('.brand-logo');
   if (logo) {
     let clickCount = 0;
@@ -345,9 +345,9 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 3000);
   }
-/* #pragma endregion */
 
-/* #pragma region Avatar Secret */
+
+
   const avatar = document.querySelector('.user-avatar');
   if (avatar) {
     avatar.addEventListener('click', function(e) {
@@ -430,21 +430,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 3000);
   }
-/* #pragma endregion */
 
-/* #pragma region Console Message */
+
+
   console.log(`%c
    🔍 Добро пожаловать в консоль!
    
    Исходный код: https://github.com/LevGamer39/LevGamer39.github.io
-   
-   Нашел пасхалки?
-   - Konami Code: ↑↑↓↓←→←→BA (Retro Wave эффект)
-   - 5 кликов по логотипу
-   - Клик по аватару
-   - Команды в терминале: matrix, sudo, hack, secret
-   
-   Удачи в исследовании! 🚀
-  `, 'color: #4DA3FF; font-family: "JetBrains Mono", monospace; font-size: 14px;');
+  
+ `, 'color: #4DA3FF; font-family: "JetBrains Mono", monospace; font-size: 14px;');
 });
-/* #pragma endregion */

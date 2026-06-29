@@ -1,4 +1,4 @@
-const IS_NEW_YEAR_MODE = false; 
+﻿const IS_NEW_YEAR_MODE = false; 
 if (IS_NEW_YEAR_MODE) {
 	const snowCanvas = document.createElement('canvas');
 	snowCanvas.id = 'snow-canvas';
@@ -17,8 +17,6 @@ if (IS_NEW_YEAR_MODE) {
 	let height = window.innerHeight;
 	let flakes = [];
 	let animationFrameId;
-
-	// Настройки снега
 	const settings = {
 		count: 150,           // Количество снежинок
 		minSize: 1,           // Минимальный размер
@@ -215,8 +213,6 @@ if (IS_NEW_YEAR_MODE) {
 			}
 		};
 	}
-
-	// Запуск
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', initSnow);
 	} else {

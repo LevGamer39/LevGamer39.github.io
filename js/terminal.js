@@ -1,5 +1,5 @@
-/* terminal.js */
-/* #pragma region Terminal Core */
+﻿
+
 (function(){
   const out = document.getElementById('terminal-output');
   const input = document.getElementById('terminal-input');
@@ -141,24 +141,24 @@
     
     return currentInput;
   }
-/* #pragma endregion */
 
-/* #pragma region Terminal Commands */
+
+
   const commands = {
     ls(arg) {
       const path = arg ? resolvePath(arg) : currentDir;
       const dir = fileSystem[path];
       
       if (!dir) {
-        appendLine(`ls: невозможно получить доступ к '${path}': Нет такого файла или каталога`);
+          appendLine(`ls: невозможно получить доступ к '${path}': Нет такого файла или каталога`);
         return;
       }
-      
+
       if (!canAccessDirectory(path)) {
-        appendLine(`ls: открытие каталога '${path}': Доступ запрещен`);
+          appendLine(`ls: открытие каталога '${path}': Доступ запрещен`);
         return;
       }
-      
+
       appendLine(`Содержимое ${path}:`);
       appendLine('');
       
@@ -189,7 +189,7 @@
     cd(arg) {
       if (!arg) {
         currentDir = '/home/lev';
-        appendLine('Переход в домашнюю директорию');
+          appendLine('Переход в домашнюю директорию');
         return;
       }
       
@@ -199,15 +199,15 @@
         appendLine(`cd: ${arg}: Нет такого файла или каталога`);
         return;
       }
-      
+
       if (!canAccessDirectory(newPath)) {
-        appendLine(`cd: ${arg}: Доступ запрещен`);
+          appendLine(`cd: ${arg}: Доступ запрещен`);
         return;
       }
-      
+
       const parent = newPath.split('/').slice(0, -1).join('/') || '/';
       const dirName = newPath.split('/').pop();
-      
+
       if (newPath !== '/') {
         const parentDir = fileSystem[parent];
         if (!parentDir || !parentDir[dirName] || !parentDir[dirName].startsWith('DIR')) {
@@ -221,8 +221,8 @@
 
     cat(arg) {
       if (!arg) {
-        appendLine('cat: отсутствует операнд');
-        appendLine('Постарайтесь «cat --help» для получения дополнительной информации.');
+          appendLine('cat: отсутствует операнд');
+          appendLine('Постарайтесь «cat --help» для получения дополнительной информации.');
         return;
       }
       
@@ -366,7 +366,7 @@
     },
 
     hack() {
-      appendLine('🚀 Инициализация протокола взлома...');
+      appendLine('Инициализация протокола взлома...');
       appendLine('📡 Подключение к главному серверу...');
       
       const messages = [
@@ -386,8 +386,8 @@
           appendLine(msg);
           if (index === messages.length - 1) {
             setTimeout(() => {
-              appendLine('✅ Взлом завершен!');
-              appendLine('🎉 Шучу! Это же мой сайт :)');
+              appendLine('Взлом завершён!');
+                appendLine('Шучу! Это же мой сайт :)');
             }, 800);
           }
         }, delay);
@@ -396,13 +396,13 @@
     },
 
     secret() {
-      appendLine('🎊 Поздравляю! Ты нашел секретную команду!');
+      appendLine('Ты нашел секретную команду!');
       appendLine('');
-      appendLine('🔮 Доступные секреты:');
+      appendLine('Доступные секреты:');
       appendLine('  matrix - Цифровой дождь в стиле Матрицы');
       appendLine('  hack   - Имитация процесса взлома');
       appendLine('');
-      appendLine('💡 Подсказка: попробуй ввести код Konami на сайте!');
+      appendLine('Подсказка: попробуй ввести код Konami на сайте!');
       appendLine('   (↑ ↑ ↓ ↓ ← → ← → B A)');
     },
 
@@ -426,11 +426,11 @@
       appendLine('  system check - проверка системы');
       appendLine('  goto <page>  - перейти на страницу (home|skills|projects|contact)');
       appendLine('');
-      appendLine('🎮 ИГРЫ:');
+      appendLine('ИГРЫ:');
       appendLine('  game guess  - Угадай число');
       appendLine('  game rps    - Камень-ножницы-бумага');
       appendLine('');
-      appendLine('🔮 СЕКРЕТНЫЕ КОМАНДЫ:');
+      appendLine('СЕКРЕТНЫЕ КОМАНДЫ:');
       appendLine('  matrix      - Эффект цифрового дождя');
       appendLine('  hack        - Имитация взлома');
       appendLine('  secret      - Секретная информация');
@@ -439,7 +439,7 @@
     },
     
     projects() {
-      appendLine('МОИ ПРОЕКТЫ');
+      appendLine('МОИ ПРОЕКТЫ:');
       appendLine('');
       appendLine('Garden Defence');
       appendLine('  Игра на C# (Unity) с системой автоматической обороны');
@@ -450,7 +450,7 @@
       appendLine('  Технологии: Python · Termux · Steam · Automation');
       appendLine('');
       appendLine('Slanglit Bot');
-      appendLine('  Telegram-бот для работы с сленгом и разговорной речью');
+      appendLine('  Telegram-бот для работы со сленгом и разговорной речью');
       appendLine('  Технологии: Python · Telegram API · AI · NLP');
       appendLine('');
       appendLine('Raspberry Pi 5 Homelab');
@@ -501,7 +501,7 @@
     },
 
     info() {
-      appendLine('ИНФОРМАЦИЯ О РАЗРАБОТЧИКЕ');
+      appendLine('ИНФОРМАЦИЯ');
       appendLine('');
       appendLine('Lev Kirillov (LevGamer39)');
       appendLine('Backend-разработчик');
@@ -563,10 +563,10 @@
         appendLine('  contact  - Контакты и форма обратной связи');
         return; 
       }
-      
+
       const page = arg.trim().toLowerCase();
       const pageElements = document.querySelectorAll(`[data-page="${page}"]`);
-      
+
       if (pageElements.length > 0) {
         appendLine(`Переход на страницу: ${page}`);
         setTimeout(() => {
@@ -583,14 +583,14 @@
       }
     }
   };
-/* #pragma endregion */
 
-/* #pragma region Game Functions */
+
+
   function startGuessGame() {
     const number = Math.floor(Math.random() * 100) + 1;
     let attempts = 0;
     
-    appendLine('🎯 Запуск игры "Угадай число"');
+    appendLine('Запуск игры "Угадай число"');
     appendLine('Я загадал число от 1 до 100.');
     appendLine('Попробуй угадать!');
     appendLine('Для выхода введите "exit"');
@@ -601,7 +601,7 @@
         const val = String(raw || '').trim().toLowerCase();
         
         if (val === 'exit') {
-          appendLine(`🏁 Игра прервана. Загаданное число было: ${number}`);
+          appendLine(`Игра прервана. Загаданное число было: ${number}`);
           activeGame = null;
           return true;
         }
@@ -609,25 +609,25 @@
         const guess = parseInt(val);
         
         if (isNaN(guess)) {
-          appendLine('❌ Пожалуйста, введите число от 1 до 100');
+          appendLine('Пожалуйста, введите число от 1 до 100');
           return false;
         }
         
         if (guess < 1 || guess > 100) {
-          appendLine('❌ Число должно быть от 1 до 100');
+          appendLine('Число должно быть от 1 до 100');
           return false;
         }
         
         attempts++;
         
         if (guess === number) {
-          appendLine(`🎉 Поздравляю! Ты угадал число ${number} за ${attempts} попыток!`);
+          appendLine(`Поздравляю! Ты угадал число ${number} за ${attempts} попыток!`);
           activeGame = null;
           return true;
         } else if (guess < number) {
-          appendLine('📈 Больше!');
+          appendLine('Больше!');
         } else {
-          appendLine('📉 Меньше!');
+          appendLine('Меньше!');
         }
         return false;
       }
@@ -637,7 +637,7 @@
   function startRPSGame() {
     const choices = ['камень', 'ножницы', 'бумага'];
     
-    appendLine('✂️ Запуск игры "Камень-Ножницы-Бумага"');
+    appendLine('Запуск игры "Камень-Ножницы-Бумага"');
     appendLine('Доступные варианты: камень, ножницы, бумага');
     appendLine('Для выхода введите "exit"');
     
@@ -647,29 +647,29 @@
         const val = String(raw || '').trim().toLowerCase();
         
         if (val === 'exit') {
-          appendLine('🏁 Игра прервана');
+          appendLine('Игра прервана');
           activeGame = null;
           return true;
         }
         
         if (!choices.includes(val)) {
-          appendLine('❌ Доступные варианты: камень, ножницы, бумага');
+          appendLine('Доступные варианты: камень, ножницы, бумага');
           return false;
         }
         
         const computerChoice = choices[Math.floor(Math.random() * 3)];
-        appendLine(`🤖 Компьютер выбрал: ${computerChoice}`);
-        
+        appendLine(`Компьютер выбрал: ${computerChoice}`);
+
         if (val === computerChoice) {
-          appendLine('🤝 Ничья!');
+          appendLine('Ничья!');
         } else if (
           (val === 'камень' && computerChoice === 'ножницы') ||
           (val === 'ножницы' && computerChoice === 'бумага') ||
           (val === 'бумага' && computerChoice === 'камень')
         ) {
-          appendLine('🎉 Ты выиграл!');
+          appendLine('Ты выиграл!');
         } else {
-          appendLine('💻 Компьютер выиграл!');
+          appendLine('Компьютер выиграл!');
         }
         
         appendLine('Сыграем еще? Введите: камень, ножницы, бумага или exit для выхода');
@@ -677,9 +677,9 @@
       }
     };
   }
-/* #pragma endregion */
 
-/* #pragma region Terminal Logic */
+
+
   function handleCommand(raw) {
     const val = String(raw || '').trim();
     if (!val) return;
@@ -745,12 +745,12 @@
     input.focus();
   });
 
-/* #pragma region Initialization and New Year Logic */
+
   const IS_NEW_YEAR_MODE = false; 
 
   function applyNYTheme() {
     let link = document.getElementById('ny-styles');
-    if (IS_NEW_YEAR_MODE) {
+      if (IS_NEW_YEAR_MODE) {
       if (!link) {
         link = document.createElement('link');
         link.id = 'ny-styles';
@@ -769,7 +769,7 @@
   if (out.children.length === 0) {
     if (IS_NEW_YEAR_MODE) {
       const treeLines = [
-        "      ⭐",
+        "      *",
         "     /+\\",
         "    /o..\\",
         "   /..o..\\",
@@ -783,7 +783,7 @@
         div.style.lineHeight = '1.2';
         
         if (index === 0) {
-            div.innerHTML = `<span style="display:inline-block; width: 6.5ch; text-align: right; color: #FFD700; text-shadow: 0 0 10px gold;">⭐</span>`;
+            div.innerHTML = `<span style="display:inline-block; width: 6.5ch; text-align: right; color: #FFD700; text-shadow: 0 0 10px gold;">*</span>`;
         } else {
             div.textContent = line;
             div.style.color = index === 4 ? '#795548' : '#3BA55D';
@@ -798,6 +798,5 @@
     appendLine('');
     appendLine('Для начала работы введите "help" для списка команд.');
   }
-  /* #pragma endregion */
+  
 })();
-/* #pragma endregion */

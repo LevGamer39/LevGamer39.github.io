@@ -1,5 +1,5 @@
-/* mobile-menu.js */
-/* #pragma region Mobile Menu Logic */
+﻿
+
 document.addEventListener('DOMContentLoaded', function() {
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mainNav = document.getElementById('main-nav');
@@ -134,4 +134,3 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('focusin', handleFocusIn);
   }
 });
-/* #pragma endregion */

@@ -1,5 +1,5 @@
-/* spa-router.js */
-/* #pragma region SPA Router Logic */
+﻿
+
 document.addEventListener('DOMContentLoaded', function() {
   const pages = document.querySelectorAll('.page');
   const navLinks = document.querySelectorAll('.nav-link');
@@ -90,4 +90,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
-/* #pragma endregion */
+
